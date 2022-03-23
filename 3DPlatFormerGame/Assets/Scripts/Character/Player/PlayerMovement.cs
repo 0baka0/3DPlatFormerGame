@@ -5,10 +5,19 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed;     // 이동 속도
-    private Vector3 moveForce;  // 이동 힘 (x, z와 y축을 별도로 계산해 실제 이동에 적용)
+    [SerializeField]
+    private float moveSpeed = 5;    // 이동 속도
+    private Vector3 moveForce;      // 이동 힘 (x, z와 y축을 별도로 계산해 실제 이동에 적용)
+
+    public float rotationSpeed;     // 회전 속도
 
     private CharacterController characterController;    // 플레이어 이동 제어를 위한 컴포넌트
+
+    public float MoveSpeed
+    {
+        get => moveSpeed;
+        set => moveSpeed = Mathf.Max(0, value);
+    }
 
     private void Awake()
     {
@@ -28,7 +37,18 @@ public class PlayerMovement : MonoBehaviour
     public void MoveTo(Vector3 direction)
     {
         // 이동 방향 = 캐릭터의 회전 값 * 방향 값
-        direction = transform.rotation * new Vector3(direction.x, 0, direction.z);
+        direction = new Vector3(direction.x, 0, direction.z);
+        
+        // 부드러운 움직임
+        if (direction.sqrMagnitude > .01f)
+        {
+            Vector3 forward = Vector3.Slerp(
+                transform.forward,
+                direction,
+                rotationSpeed * Time.deltaTime / Vector3.Angle(transform.forward, direction));
+
+            transform.LookAt(transform.position + forward);
+        }
 
         // 이동 힘 = 이동방향 * 속도
         moveForce = new Vector3(direction.x * moveSpeed, moveForce.y, direction.z * moveSpeed);
