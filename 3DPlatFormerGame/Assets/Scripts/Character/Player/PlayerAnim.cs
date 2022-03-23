@@ -20,4 +20,14 @@ public class PlayerAnim : MonoBehaviour
         // "PlayerBody" 오브젝트에 Animator 컴포넌트가 있다
         animator = GetComponentInChildren<Animator>();
     }
+
+    public void PlayTrigger(string stateName)
+    {
+        animator.SetTrigger(stateName);
+    }
+
+    public void PlayBool(string stateName, bool param)
+    {
+        animator.SetBool(stateName, param);
+    }
 }

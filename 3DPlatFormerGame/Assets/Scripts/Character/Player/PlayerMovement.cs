@@ -9,9 +9,14 @@ public class PlayerMovement : MonoBehaviour
     private float moveSpeed = 5;    // 이동 속도
     private Vector3 moveForce;      // 이동 힘 (x, z와 y축을 별도로 계산해 실제 이동에 적용)
 
+    public float jumpForce;         // 점프 힘
+    public float gravity;           // 중력 계수
+
     public float rotationSpeed;     // 회전 속도
 
     private CharacterController characterController;    // 플레이어 이동 제어를 위한 컴포넌트
+
+    private PlayerAnim animator;
 
     public float MoveSpeed
     {
@@ -22,10 +27,17 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        animator = GetComponent<PlayerAnim>();
     }
 
     private void Update()
     {
+        // 허공에 떠있으면 중력만큼 y축 이동속도 감소
+        if(!characterController.isGrounded)
+        {
+            moveForce.y += gravity * Time.deltaTime;
+        }
+
         // 초당 moveForce 속력으로 이동
         characterController.Move(moveForce * Time.deltaTime);
     }
@@ -52,5 +64,14 @@ public class PlayerMovement : MonoBehaviour
 
         // 이동 힘 = 이동방향 * 속도
         moveForce = new Vector3(direction.x * moveSpeed, moveForce.y, direction.z * moveSpeed);
+    }
+
+    public void Jump()
+    {
+        if(characterController.isGrounded)
+        {
+            moveForce.y = jumpForce;
+            //animator.PlayBool("isJump", false);
+        }
     }
 }
