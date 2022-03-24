@@ -21,11 +21,13 @@ public class PlayerAnim : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
+    // SetTrigger를 저장한 메소드
     public void PlayTrigger(string stateName)
     {
         animator.SetTrigger(stateName);
     }
 
+    // SetBool을 저장한 메소드
     public void PlayBool(string stateName, bool param)
     {
         animator.SetBool(stateName, param);

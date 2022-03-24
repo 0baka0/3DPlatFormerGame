@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAnim playerAnim;      // 애니메이션 재생 제어
     private AudioSource audioSource;    // 사운드 재생 제어
 
+    public bool isJump;                 // 점프 상태 여부
     public bool player2P;               // 1P와 2P를 구분
 
     private void Awake()
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
                 isRun = Input.GetKey(keyCodeRun1P);
 
                 // 왼쪽 쉬프트가 눌렸다면 달리기, 그게 아니라면 걷기
+                // 그에 따른 속도 증가, 애니메이션 재생, 사운드 재생
                 movement.MoveSpeed = isRun == true ? status.runSpeed : status.walkSpeed;
                 playerAnim.MoveSpeed = isRun == true ? 1 : .5f;
                 audioSource.clip = isRun == true ? audioClipRun : audioClipWalk;
@@ -99,6 +101,7 @@ public class PlayerController : MonoBehaviour
                 isRun = Input.GetKey(keyCodeRun2P);
 
                 // 오른쪽 쉬프트가 눌렸다면 달리기, 그게 아니라면 걷기
+                // 그에 따른 속도 증가, 애니메이션 재생, 사운드 재생
                 movement.MoveSpeed = isRun == true ? status.runSpeed : status.walkSpeed;
                 playerAnim.MoveSpeed = isRun == true ? 1 : .5f;
                 audioSource.clip = isRun == true ? audioClipRun : audioClipWalk;
@@ -128,29 +131,52 @@ public class PlayerController : MonoBehaviour
     // 1P와 2P 점프
     private void UpdateJump()
     {
+        // Player 1
         if (player2P == false)
         {
-            if (Input.GetKeyDown(keyCodeJump1P))
+            // 연속으로 점프가 눌리는 걸 방지하기 위함 (버니합)
+            //if (Input.GetKeyDown(keyCodeJump1P) && !isJump)
+            //{
+            //    movement.Jump();                      // 점프
+            //    playerAnim.PlayTrigger("doJump");     // 활성화
+            //    playerAnim.PlayBool("isJump", true);  // PlayerJumpAnimation
+            //    isJump = true;                        // 점프를 하는 중이니 isJump를 true로
+            //}
+            if(Input.GetKey(keyCodeJump1P) && !isJump)
             {
-                Debug.Log("점프");
-                movement.Jump();
-                playerAnim.PlayTrigger("doJump");
-                playerAnim.PlayBool("isJump", true);
+                movement.Jump();                        // 점프
+                playerAnim.PlayTrigger("doJump");       // 활성화
+                playerAnim.PlayBool("isJump", true);    // PlayerJumpAnimation
+                isJump = true;                          // 점프를 하는 중이니 isJump를 true로
             }
-            else
-            {
-                playerAnim.PlayBool("isJump", false);
-            }    
         }
 
+        // Player 2
         else if (player2P == true)
         {
-            if (Input.GetKeyDown(keyCodeJump2P))
+            // 연속으로 점프가 눌리는 걸 방지하기 위함
+            if (Input.GetKeyDown(keyCodeJump2P) && !isJump)
             {
-                Debug.Log("점프2");
-                movement.Jump();
+                movement.Jump();                        // 점프
+                playerAnim.PlayTrigger("doJump");       // 활성화
+                playerAnim.PlayBool("isJump", true);    // PlayerJump Animation
+                isJump = true;                          // 점프를 하는 중이니 isJump를 true로
             }
+        }
+    }
 
+    // CharacterController를 사용 했을 때 충돌을 받기 위함
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        // 땅에 닿았을때는 물론
+        // 퍼즐을 풀기 위해 Player를 밟고 점프를 해야할 때도 있으니
+        // Player 태그도 넣었다.
+        if(hit.gameObject.tag == "Ground" || hit.gameObject.tag == "Player")
+        {
+            // PlayerJump Animation을 비활성화 시키면서 PlayerLand Animtion을 활성화한 후
+            // ExitNode로 나가 Movement Blend로 다시 진입
+            playerAnim.PlayBool("isJump", false);
+            isJump = false;
         }
     }
 

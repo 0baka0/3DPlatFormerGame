@@ -15,6 +15,11 @@ public class FollowCam : MonoBehaviour
         tr = GetComponent<Transform>();
     }
 
+    private void Update()
+    {
+        transform.RotateAround(target.transform.position, Vector3.up, 20 * Time.deltaTime);
+    }
+
     private void LateUpdate()
     {
 

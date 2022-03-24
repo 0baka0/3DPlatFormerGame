@@ -14,9 +14,10 @@ public class PlayerMovement : MonoBehaviour
 
     public float rotationSpeed;     // 회전 속도
 
-    private CharacterController characterController;    // 플레이어 이동 제어를 위한 컴포넌트
+    // 플레이어 이동 제어를 위한 컴포넌트
+    private CharacterController characterController;    
 
-    private PlayerAnim animator;
+    private PlayerAnim animator;    
 
     public float MoveSpeed
     {
@@ -59,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
                 direction,
                 rotationSpeed * Time.deltaTime / Vector3.Angle(transform.forward, direction));
 
+            // 앞을 쳐다본다.
             transform.LookAt(transform.position + forward);
         }
 
@@ -66,12 +68,15 @@ public class PlayerMovement : MonoBehaviour
         moveForce = new Vector3(direction.x * moveSpeed, moveForce.y, direction.z * moveSpeed);
     }
 
+    // 점프
     public void Jump()
     {
+        // 땅에 닿았을 때
         if(characterController.isGrounded)
         {
+            // y값으로 jumpForce의 힘만큼 가게한다
+            // 위로 올라간다
             moveForce.y = jumpForce;
-            //animator.PlayBool("isJump", false);
         }
     }
 }
