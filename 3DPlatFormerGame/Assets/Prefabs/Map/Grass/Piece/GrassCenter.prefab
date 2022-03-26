@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5905987165552004313}
   - component: {fileID: 7375088164843635580}
   - component: {fileID: 4737053251313186742}
+  - component: {fileID: -6813184630434614260}
   m_Layer: 0
   m_Name: GrassCenter
   m_TagString: Ground
@@ -82,3 +83,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &-6813184630434614260
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6538550071402567267}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.020000005, y: 0.020000005, z: 0.019959567}
+  m_Center: {x: 0, y: 4.656614e-10, z: -0.000020218553}

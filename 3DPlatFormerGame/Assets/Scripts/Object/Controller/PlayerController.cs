@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [Header("Audio Clips Afterwards Change")]
     public AudioClip audioClipWalk;     // 걷기 사운드
     public AudioClip audioClipRun;      // 달리기 사운드
+    public AudioClip audioClipJump;     // 점프 사운드
 
     private PlayerMovement movement;    // 키보드 입력으로 플레이어 이동, 점프
     private Status status;              // 이동속도 등의 플레이어 정보
@@ -147,7 +148,13 @@ public class PlayerController : MonoBehaviour
                 movement.Jump();                        // 점프
                 playerAnim.PlayTrigger("doJump");       // 활성화
                 playerAnim.PlayBool("isJump", true);    // PlayerJumpAnimation
+                audioSource.clip = audioClipJump;
+                audioSource.Play();
                 isJump = true;                          // 점프를 하는 중이니 isJump를 true로
+            }
+            else
+            {
+                audioSource.Stop();
             }
         }
 
@@ -160,7 +167,13 @@ public class PlayerController : MonoBehaviour
                 movement.Jump();                        // 점프
                 playerAnim.PlayTrigger("doJump");       // 활성화
                 playerAnim.PlayBool("isJump", true);    // PlayerJump Animation
+                audioSource.clip = audioClipJump;
+                audioSource.Play();
                 isJump = true;                          // 점프를 하는 중이니 isJump를 true로
+            }
+            else
+            {
+                audioSource.Stop();
             }
         }
     }
