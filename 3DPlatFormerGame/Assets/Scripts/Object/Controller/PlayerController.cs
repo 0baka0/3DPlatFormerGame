@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
     public bool isJump;                 // 점프 상태 여부
     public bool player2P;               // 1P와 2P를 구분
 
+    public GameObject fallingTarget;    // 낙사 했을 때 리스폰 될 TargetPos
+    public GameObject bridgeTarget;     // 화살표대로 가지 않았을 때 리스폰될 TargetPos
+
     private void Awake()
     {
         // 마우스 커서를 보이지 않게 설정하고, 현재 위치에 고정시킨다
@@ -143,13 +146,15 @@ public class PlayerController : MonoBehaviour
             //    playerAnim.PlayBool("isJump", true);  // PlayerJumpAnimation
             //    isJump = true;                        // 점프를 하는 중이니 isJump를 true로
             //}
-            if(Input.GetKey(keyCodeJump1P) && !isJump)
+            // 점프를 누르고 있으면 계속 점프가 가능
+            // 무한 점프와는 다르다
+            if (Input.GetKey(keyCodeJump1P) && !isJump)
             {
                 movement.Jump();                        // 점프
                 playerAnim.PlayTrigger("doJump");       // 활성화
                 playerAnim.PlayBool("isJump", true);    // PlayerJumpAnimation
-                audioSource.clip = audioClipJump;
-                audioSource.Play();
+                //audioSource.clip = audioClipJump;       
+                //audioSource.Play();
                 isJump = true;                          // 점프를 하는 중이니 isJump를 true로
             }
             else
@@ -161,14 +166,15 @@ public class PlayerController : MonoBehaviour
         // Player 2
         else if (player2P == true)
         {
+
             // 연속으로 점프가 눌리는 걸 방지하기 위함
             if (Input.GetKeyDown(keyCodeJump2P) && !isJump)
             {
                 movement.Jump();                        // 점프
                 playerAnim.PlayTrigger("doJump");       // 활성화
                 playerAnim.PlayBool("isJump", true);    // PlayerJump Animation
-                audioSource.clip = audioClipJump;
-                audioSource.Play();
+                //audioSource.clip = audioClipJump;
+                //audioSource.Play();
                 isJump = true;                          // 점프를 하는 중이니 isJump를 true로
             }
             else
@@ -184,13 +190,41 @@ public class PlayerController : MonoBehaviour
         // 땅에 닿았을때는 물론
         // 퍼즐을 풀기 위해 Player를 밟고 점프를 해야할 때도 있으니
         // Player 태그도 넣었다.
-        if(hit.gameObject.tag == "Ground" || hit.gameObject.tag == "Player")
+        if (hit.gameObject.tag == "Ground" || hit.gameObject.tag == "Player" || hit.gameObject.tag == "Bridge")
         {
             // PlayerJump Animation을 비활성화 시키면서 PlayerLand Animtion을 활성화한 후
             // ExitNode로 나가 Movement Blend로 다시 진입
             playerAnim.PlayBool("isJump", false);
             isJump = false;
         }
+
     }
+
+    // 리스폰
+    private void OnTriggerEnter(Collider other)
+    {
+        // 낙사
+        if(other.tag == "Respawn")
+        {
+            gameObject.transform.position = fallingTarget.transform.position;
+        }
+        // Player2가 화살표대로 가지 않았을 때
+        else if (other.tag == "Respawn1")
+        {
+            if (player2P == true)
+            {
+                gameObject.transform.position = bridgeTarget.transform.position;
+            }
+        }
+        // Player1이 화살표대로 가지 않았을 때
+        else if (other.tag == "Respawn2")
+        {
+            if (player2P == false)
+            {
+                gameObject.transform.position = bridgeTarget.transform.position;
+            }
+        }
+    }
+
 
 }

@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Bridge
+  - Respawn1
+  - Respawn2
   layers:
   - Default
   - TransparentFX
