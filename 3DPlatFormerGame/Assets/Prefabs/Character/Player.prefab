@@ -508,7 +508,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1302548745851729645}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 275102773901858506}
@@ -526,7 +526,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.75
+  m_Height: 1.85
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -563,8 +563,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioClipWalk: {fileID: 8300000, guid: 2bc598744a43729418a2dc2a9fd43cc3, type: 3}
   audioClipRun: {fileID: 8300000, guid: fcd9cd62b5f47df499210ec2ed9322f1, type: 3}
+  audioClipJump: {fileID: 0}
   isJump: 0
   player2P: 0
+  fallingTarget: {fileID: 0}
+  bridgeTarget: {fileID: 0}
+  fallingStage1Target: {fileID: 0}
 --- !u!114 &1302548745851729650
 MonoBehaviour:
   m_ObjectHideFlags: 0

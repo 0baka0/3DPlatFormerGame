@@ -8,6 +8,8 @@ TagManager:
   - Bridge
   - Respawn1
   - Respawn2
+  - RespawnStage1
+  - Arrow
   layers:
   - Default
   - TransparentFX

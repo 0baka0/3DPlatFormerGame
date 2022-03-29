@@ -11,20 +11,21 @@ public class PlayerController : MonoBehaviour
     private KeyCode keyCodeJump2P = KeyCode.Space;      // 점프 키 2P
 
     [Header("Audio Clips Afterwards Change")]
-    public AudioClip audioClipWalk;     // 걷기 사운드
-    public AudioClip audioClipRun;      // 달리기 사운드
-    public AudioClip audioClipJump;     // 점프 사운드
+    public AudioClip audioClipWalk;         // 걷기 사운드
+    public AudioClip audioClipRun;          // 달리기 사운드
+    public AudioClip audioClipJump;         // 점프 사운드
 
-    private PlayerMovement movement;    // 키보드 입력으로 플레이어 이동, 점프
-    private Status status;              // 이동속도 등의 플레이어 정보
-    private PlayerAnim playerAnim;      // 애니메이션 재생 제어
-    private AudioSource audioSource;    // 사운드 재생 제어
+    private PlayerMovement movement;        // 키보드 입력으로 플레이어 이동, 점프
+    private Status status;                  // 이동속도 등의 플레이어 정보
+    private PlayerAnim playerAnim;          // 애니메이션 재생 제어
+    private AudioSource audioSource;        // 사운드 재생 제어
 
-    public bool isJump;                 // 점프 상태 여부
-    public bool player2P;               // 1P와 2P를 구분
+    public bool isJump;                     // 점프 상태 여부
+    public bool player2P;                   // 1P와 2P를 구분
 
-    public GameObject fallingTarget;    // 낙사 했을 때 리스폰 될 TargetPos
-    public GameObject bridgeTarget;     // 화살표대로 가지 않았을 때 리스폰될 TargetPos
+    public GameObject fallingTarget;        // 낙사 했을 때 리스폰 될 TargetPos
+    public GameObject bridgeTarget;         // 화살표대로 가지 않았을 때 리스폰될 TargetPos
+    public GameObject fallingStage1Target;  // Stage1에서 낙사 했을 때 리스폰 될 TargetPos
 
     private void Awake()
     {
@@ -138,14 +139,6 @@ public class PlayerController : MonoBehaviour
         // Player 1
         if (player2P == false)
         {
-            // 연속으로 점프가 눌리는 걸 방지하기 위함 (버니합)
-            //if (Input.GetKeyDown(keyCodeJump1P) && !isJump)
-            //{
-            //    movement.Jump();                      // 점프
-            //    playerAnim.PlayTrigger("doJump");     // 활성화
-            //    playerAnim.PlayBool("isJump", true);  // PlayerJumpAnimation
-            //    isJump = true;                        // 점프를 하는 중이니 isJump를 true로
-            //}
             // 점프를 누르고 있으면 계속 점프가 가능
             // 무한 점프와는 다르다
             if (Input.GetKey(keyCodeJump1P) && !isJump)
@@ -166,7 +159,6 @@ public class PlayerController : MonoBehaviour
         // Player 2
         else if (player2P == true)
         {
-
             // 연속으로 점프가 눌리는 걸 방지하기 위함
             if (Input.GetKeyDown(keyCodeJump2P) && !isJump)
             {
@@ -187,10 +179,8 @@ public class PlayerController : MonoBehaviour
     // CharacterController를 사용 했을 때 충돌을 받기 위함
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // 땅에 닿았을때는 물론
-        // 퍼즐을 풀기 위해 Player를 밟고 점프를 해야할 때도 있으니
-        // Player 태그도 넣었다.
-        if (hit.gameObject.tag == "Ground" || hit.gameObject.tag == "Player" || hit.gameObject.tag == "Bridge")
+        // 특정 태그를 가지고 있는 오브젝트 (땅, 플레이어, 다리, 화실표푯말)를 밟을 때 점프 초기화
+        if (hit.gameObject.tag == "Ground" || hit.gameObject.tag == "Player" || hit.gameObject.tag == "Bridge" || hit.gameObject.tag == "Arrow")
         {
             // PlayerJump Animation을 비활성화 시키면서 PlayerLand Animtion을 활성화한 후
             // ExitNode로 나가 Movement Blend로 다시 진입
@@ -204,9 +194,13 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 낙사
-        if(other.tag == "Respawn")
+        if (other.tag == "Respawn")
         {
             gameObject.transform.position = fallingTarget.transform.position;
+        }
+        else if (other.tag == "RespawnStage1")
+        {
+            gameObject.transform.position = fallingStage1Target.transform.position;
         }
         // Player2가 화살표대로 가지 않았을 때
         else if (other.tag == "Respawn1")
