@@ -20,22 +20,22 @@ public class FollowCam : MonoBehaviour
     {
         //transform.RotateAround(target.transform.position, Vector3.up, 20 * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.Q))
-        {
-            transform.RotateAround(target.position, Vector3.up, 5.0f);
-            Debug.Log("Q");
+        //if (Input.GetKey(KeyCode.Q))
+        //{
+        //    transform.RotateAround(target.position, Vector3.up, 5.0f);
+        //    Debug.Log("Q");
 
-            //offset = transform.position - target.position;
-            //offset.Normalize();
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            transform.RotateAround(target.position, Vector3.up, -5.0f);
-            Debug.Log("E");
+        //    offset = transform.position - target.position;
+        //    offset.Normalize();
+        //}
+        //if (Input.GetKey(KeyCode.E))
+        //{
+        //    transform.RotateAround(target.position, Vector3.up, -5.0f);
+        //    Debug.Log("E");
 
-            //offset = transform.position - target.position;
-            //offset.Normalize();
-        }
+        //    offset = transform.position - target.position;
+        //    offset.Normalize();
+        //}
     }
 
     private void LateUpdate()
@@ -43,7 +43,7 @@ public class FollowCam : MonoBehaviour
         // 카메라 위치 설정
         tr.position = target.position - (1 * Vector3.forward * distance)
             + (Vector3.up * height);
-        
+
         // 타겟을 바라보게 하기
         tr.LookAt(target);
     }
