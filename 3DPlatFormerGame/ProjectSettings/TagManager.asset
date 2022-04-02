@@ -10,6 +10,9 @@ TagManager:
   - Respawn2
   - RespawnStage1
   - Arrow
+  - Lever
+  - Spike
+  - Object
   layers:
   - Default
   - TransparentFX

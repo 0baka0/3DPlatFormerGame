@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     private Status status;                  // 이동속도 등의 플레이어 정보
     private PlayerAnim playerAnim;          // 애니메이션 재생 제어
     private AudioSource audioSource;        // 사운드 재생 제어
+    public Lever lever;                     // Lever 제어
+    public HazardSpikeTrap[] hazardSpikeTrap; // HazardSpikeTrap 제어
 
     public bool isJump;                     // 점프 상태 여부
     public bool player2P;                   // 1P와 2P를 구분
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
         status = GetComponent<Status>();
         playerAnim = GetComponent<PlayerAnim>();
         audioSource = GetComponent<AudioSource>();
+        //hazardSpikeTrap = GetComponent<HazardSpikeTrap>();
     }
 
     private void Update()
@@ -179,15 +182,23 @@ public class PlayerController : MonoBehaviour
     // CharacterController를 사용 했을 때 충돌을 받기 위함
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // 특정 태그를 가지고 있는 오브젝트 (땅, 플레이어, 다리, 화실표푯말)를 밟을 때 점프 초기화
-        if (hit.gameObject.tag == "Ground" || hit.gameObject.tag == "Player" || hit.gameObject.tag == "Bridge" || hit.gameObject.tag == "Arrow")
+        // 특정 태그를 가지고 있는 오브젝트(땅, 플레이어, 다리 등)를 밟을 때 점프 초기화
+        if (hit.gameObject.tag == "Ground" || hit.gameObject.tag == "Player" || hit.gameObject.tag == "Bridge" || hit.gameObject.tag == "Arrow" || hit.gameObject.tag == "Lever" || hit.gameObject.tag == "Object")
         {
             // PlayerJump Animation을 비활성화 시키면서 PlayerLand Animtion을 활성화한 후
             // ExitNode로 나가 Movement Blend로 다시 진입
             playerAnim.PlayBool("isJump", false);
             isJump = false;
         }
+        if (hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.E) && player2P == false)
+        {
+            lever.LeverActivate();
+            for (var i = 0; i < hazardSpikeTrap.Length; i++)
+            {
+                hazardSpikeTrap[i].SpikeDisabled();
 
+            }
+        }
     }
 
     // 리스폰
@@ -217,6 +228,10 @@ public class PlayerController : MonoBehaviour
             {
                 gameObject.transform.position = bridgeTarget.transform.position;
             }
+        }
+        else if (other.tag == "Spike")
+        {
+            gameObject.transform.position = fallingStage1Target.transform.position;
         }
     }
 
