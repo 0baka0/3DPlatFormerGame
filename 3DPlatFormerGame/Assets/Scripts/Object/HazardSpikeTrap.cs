@@ -11,6 +11,7 @@ public class HazardSpikeTrap : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    // spike라는 파라미터를 가지는 Trigger를 실행
     public void SpikeDisabled()
     {
         animator.SetTrigger("spike");

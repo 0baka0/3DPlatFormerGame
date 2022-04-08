@@ -20,14 +20,19 @@ public class PlayerController : MonoBehaviour
     private PlayerAnim playerAnim;          // 애니메이션 재생 제어
     private AudioSource audioSource;        // 사운드 재생 제어
     public Lever lever;                     // Lever 제어
-    public HazardSpikeTrap[] hazardSpikeTrap; // HazardSpikeTrap 제어
+    public Lever lever2;                    // Lever2 제어
+    public HazardSpikeTrap hazardSpikeTrap; // HazardSpikeTrap 제어
+    public GameObject spikyBallCollection;  // SpikyBall 들을 가지고 있는 오브젝트
+    public TransparencyGround transparency; // 안에 있는 Ground들을 관리
 
     public bool isJump;                     // 점프 상태 여부
     public bool player2P;                   // 1P와 2P를 구분
 
     public GameObject fallingTarget;        // 낙사 했을 때 리스폰 될 TargetPos
     public GameObject bridgeTarget;         // 화살표대로 가지 않았을 때 리스폰될 TargetPos
-    public GameObject fallingStage1Target;  // Stage1에서 낙사 했을 때 리스폰 될 TargetPos
+    public GameObject bridgeTarget2;        // 화살표대로 가지 않았을 때 리스폰될 TargetPos
+    public GameObject fallingStage1Target;  // Stage1에서 낙사를 하거나 Spike 태그를 가진 오브젝트에 닿았을 때 리스폰 될 TargetPos
+    public GameObject fallingStage2Target;  // Stage2에서 낙사를 하거나 리스폰 될 TargetPos
 
     private void Awake()
     {
@@ -39,7 +44,6 @@ public class PlayerController : MonoBehaviour
         status = GetComponent<Status>();
         playerAnim = GetComponent<PlayerAnim>();
         audioSource = GetComponent<AudioSource>();
-        //hazardSpikeTrap = GetComponent<HazardSpikeTrap>();
     }
 
     private void Update()
@@ -183,7 +187,8 @@ public class PlayerController : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         // 특정 태그를 가지고 있는 오브젝트(땅, 플레이어, 다리 등)를 밟을 때 점프 초기화
-        if (hit.gameObject.tag == "Ground" || hit.gameObject.tag == "Player" || hit.gameObject.tag == "Bridge" || hit.gameObject.tag == "Arrow" || hit.gameObject.tag == "Lever" || hit.gameObject.tag == "Object")
+        if (hit.gameObject.tag == "Ground" || hit.gameObject.tag == "Player" || hit.gameObject.tag == "Bridge" || hit.gameObject.tag == "Arrow" ||
+            hit.gameObject.tag == "Lever" || hit.gameObject.tag == "Object" || hit.gameObject.tag == "Lever2")
         {
             // PlayerJump Animation을 비활성화 시키면서 PlayerLand Animtion을 활성화한 후
             // ExitNode로 나가 Movement Blend로 다시 진입
@@ -193,11 +198,17 @@ public class PlayerController : MonoBehaviour
         if (hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
             lever.LeverActivate();
-            for (var i = 0; i < hazardSpikeTrap.Length; i++)
-            {
-                hazardSpikeTrap[i].SpikeDisabled();
-
-            }
+            hazardSpikeTrap.SpikeDisabled();
+        }
+        else if(hit.gameObject.tag == "Lever2" && Input.GetKeyDown(KeyCode.E) && player2P == false)
+        {
+            lever2.LeverActivate();
+            transparency.gameObject.SetActive(true);
+        }
+        else if(hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
+        {
+            lever.LeverActivate();
+            Destroy(spikyBallCollection);
         }
     }
 
@@ -213,12 +224,23 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.transform.position = fallingStage1Target.transform.position;
         }
+        else if(other.tag == "RespawnStage2")
+        {
+            gameObject.transform.position = fallingStage2Target.transform.position;
+        }
         // Player2가 화살표대로 가지 않았을 때
         else if (other.tag == "Respawn1")
         {
             if (player2P == true)
             {
                 gameObject.transform.position = bridgeTarget.transform.position;
+            }
+        }
+        else if (other.tag == "Respawn1_2")
+        {
+            if (player2P == true)
+            {
+                gameObject.transform.position = bridgeTarget2.transform.position;
             }
         }
         // Player1이 화살표대로 가지 않았을 때
@@ -229,6 +251,14 @@ public class PlayerController : MonoBehaviour
                 gameObject.transform.position = bridgeTarget.transform.position;
             }
         }
+        else if (other.tag == "Respawn2_2")
+        {
+            if (player2P == false)
+            {
+                gameObject.transform.position = bridgeTarget2.transform.position;
+            }
+        }
+        // Spike라는 태그를 가진 오브젝트에 부딪혔을때 Stage1에 관련된 Spike이므로 fallingStage1Target에서 리스폰
         else if (other.tag == "Spike")
         {
             gameObject.transform.position = fallingStage1Target.transform.position;
