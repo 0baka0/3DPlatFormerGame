@@ -17,6 +17,8 @@ TagManager:
   - RespawnStage2
   - Respawn1_2
   - Respawn2_2
+  - Tower
+  - Saw
   layers:
   - Default
   - TransparentFX

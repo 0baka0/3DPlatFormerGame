@@ -11,7 +11,7 @@ public class Lever : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // lever라는 파라미터를 가지는 Trigger를 실행
+    // Lever의 손잡이가 작동하는 애니메이션 재생
     public void LeverActivate()
     {
         animator.SetTrigger("lever");

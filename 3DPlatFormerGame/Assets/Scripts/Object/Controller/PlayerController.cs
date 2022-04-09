@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public HazardSpikeTrap hazardSpikeTrap; // HazardSpikeTrap 제어
     public GameObject spikyBallCollection;  // SpikyBall 들을 가지고 있는 오브젝트
     public TransparencyGround transparency; // 안에 있는 Ground들을 관리
+    public Tower tower;                     // Tower 제어
 
     public bool isJump;                     // 점프 상태 여부
     public bool player2P;                   // 1P와 2P를 구분
@@ -188,27 +189,39 @@ public class PlayerController : MonoBehaviour
     {
         // 특정 태그를 가지고 있는 오브젝트(땅, 플레이어, 다리 등)를 밟을 때 점프 초기화
         if (hit.gameObject.tag == "Ground" || hit.gameObject.tag == "Player" || hit.gameObject.tag == "Bridge" || hit.gameObject.tag == "Arrow" ||
-            hit.gameObject.tag == "Lever" || hit.gameObject.tag == "Object" || hit.gameObject.tag == "Lever2")
+            hit.gameObject.tag == "Lever" || hit.gameObject.tag == "Object" || hit.gameObject.tag == "Lever2" || hit.gameObject.tag == "Tower")
         {
             // PlayerJump Animation을 비활성화 시키면서 PlayerLand Animtion을 활성화한 후
             // ExitNode로 나가 Movement Blend로 다시 진입
             playerAnim.PlayBool("isJump", false);
             isJump = false;
         }
+        // Player1의 Lever사용
         if (hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
-            lever.LeverActivate();
-            hazardSpikeTrap.SpikeDisabled();
+            lever.LeverActivate();              // 레버 애니메이션 재생
+            hazardSpikeTrap.SpikeDisabled();    // HazardSpike 애니메이션 재생
         }
         else if(hit.gameObject.tag == "Lever2" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
-            lever2.LeverActivate();
-            transparency.gameObject.SetActive(true);
+            lever2.LeverActivate();                     // 레버 애니메이션 재생
+            transparency.gameObject.SetActive(true);    // 비활성화 였던 지형 활성화
         }
+        else if(hit.gameObject.tag == "")
+        {
+            
+            tower.OpenDoor();
+        }
+        // Player2의 Lever사용
         else if(hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
         {
-            lever.LeverActivate();
-            Destroy(spikyBallCollection);
+            lever.LeverActivate();          // 레버 애니메이션 재생
+            Destroy(spikyBallCollection);   // SpikyBall 삭제
+        }
+        else if(hit.gameObject.tag == "")
+        {
+
+            tower.OpenDoor();
         }
     }
 
@@ -262,6 +275,11 @@ public class PlayerController : MonoBehaviour
         else if (other.tag == "Spike")
         {
             gameObject.transform.position = fallingStage1Target.transform.position;
+        }
+        // Saw라는 태그를 가진 오브젝트에 부딪혔을때 Stage2에 관련된 Saw이므로 fallingStage2Target에서 리스폰
+        else if (other.tag == "Saw")
+        {
+            gameObject.transform.position = fallingStage2Target.transform.position;
         }
     }
 

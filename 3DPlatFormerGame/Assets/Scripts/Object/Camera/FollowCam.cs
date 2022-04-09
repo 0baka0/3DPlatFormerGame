@@ -7,7 +7,7 @@ public class FollowCam : MonoBehaviour
     public Transform target;    // 추적할 타겟 오브젝트의 Transform
     public float distance;      // 카메라와의 일정 거리
     public float height;        // 카메라의 높이 설정
-    public Vector3 offset = new Vector3(0, 1.0f, -1.0f);
+    //public Vector3 offset = new Vector3(0, 1.0f, -1.0f);
 
     private Transform tr;       // 카메라 자신의 Transform 변수
 
