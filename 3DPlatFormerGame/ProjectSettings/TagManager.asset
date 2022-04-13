@@ -19,6 +19,7 @@ TagManager:
   - Respawn2_2
   - Tower
   - Saw
+  - DissappearGround
   layers:
   - Default
   - TransparentFX

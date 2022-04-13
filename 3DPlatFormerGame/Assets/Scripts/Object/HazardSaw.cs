@@ -1,39 +1,28 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HazardSaw : MonoBehaviour
 {
-    public float rightMax;  // 좌로 이동가능한 (x)최댓값
-    public float leftMax;   // 우로 이동가능한 (x)최댓값
-    public float y;         // Y값
-    public float z;         // Z값
-    float currentPosition;  // 현재 위치(x) 저장
-    public float direction; // 이동속도 + 방향
+    Vector3 pos; // 현재위치
+    public float delta; // 좌(우)로 이동가능한 (x)최대값
+    public float speed; // 이동속도
 
-    private void Start()
+    void Start()
     {
-        currentPosition = transform.position.x;
+        // pos에 현재 위치를 넣음
+        pos = transform.position;
     }
 
-    private void Update()
+    void Update()
     {
-        currentPosition += direction * Time.deltaTime;
-        // 현재 위치가 우로 이동 가능한 (x)최댓값보다 크거나 같다면
-        // direction에 -1을 곱해 반전을 해주고 현재 위치를 우로 이동가능한 (x)최댓박으로 설정
-        if(currentPosition >= rightMax)
-        {
-            direction *= -1;
-            currentPosition = rightMax;
-        }
-        // 현재 위치가 좌로 이동가능한 (x)최댓값보다 크거나 같다면
-        // direction에 -1을 곱해 반전을 해주고 현재 위치를 좌로 이동가능한 (x)최대값으로 설정
-        else if(currentPosition <= leftMax)
-        {
-            direction *= -1;
-            currentPosition = leftMax;
-        }
-        // HazardSaw의 위치를 계산된 현재 위치로 처리
-        transform.position = new Vector3(currentPosition, y, z);
+        // 현재 위치를 저장
+        Vector3 v = pos;
+
+        // 이해중
+        v.x += delta * Mathf.Sin(Time.time * speed);
+
+        // 현재위치에 계산된 v값을 저장
+        transform.position = v;
     }
 }

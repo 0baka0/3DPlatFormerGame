@@ -17,8 +17,6 @@ public class PlayerMovement : MonoBehaviour
     // 플레이어 이동 제어를 위한 컴포넌트
     private CharacterController characterController;    
 
-    private PlayerAnim animator;    
-
     public float MoveSpeed
     {
         get => moveSpeed;
@@ -28,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
-        animator = GetComponent<PlayerAnim>();
     }
 
     private void Update()
