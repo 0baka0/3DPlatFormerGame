@@ -25,8 +25,8 @@ public class PlayerController : MonoBehaviour
     public HazardSpikeTrap hazardSpikeTrap; // HazardSpikeTrap 제어
     public GameObject spikyBallCollection;  // SpikyBall 들을 가지고 있는 오브젝트
     public TransparencyGround transparency; // 안에 있는 Ground들을 관리
-    public FallingGround fallingGround1;    // FallingGround 제어
-    public FallingGround fallingGround2;    // FallingGround 제어
+    public FallingGround dissapearGround;    // DissapearGround 제어
+    //public FallingGround fallingGround2;    // DissapearGround 제어
     public Tower tower;                     // Tower 제어
 
     public bool isJump;                     // 점프 상태 여부
@@ -207,26 +207,31 @@ public class PlayerController : MonoBehaviour
             lever.LeverActivate();              // 레버 애니메이션 재생
             hazardSpikeTrap.SpikeDisabled();    // HazardSpike 애니메이션 재생
         }
-        else if(hit.gameObject.tag == "Lever2" && Input.GetKeyDown(KeyCode.E) && player2P == false)
+        else if (hit.gameObject.tag == "Lever2" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
             lever2.LeverActivate();                     // 레버 애니메이션 재생
             transparency.gameObject.SetActive(true);    // 비활성화 였던 지형 활성화
         }
-        else if(hit.gameObject.tag == "Lever3" && Input.GetKeyDown(KeyCode.E) && player2P == false)
+        else if (hit.gameObject.tag == "Lever3" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
             lever3.LeverActivate();
             tower.OpenDoor();
         }
         // Player2의 Lever사용
-        if(hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
+        if (hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
         {
             lever.LeverActivate();          // 레버 애니메이션 재생
             Destroy(spikyBallCollection);   // SpikyBall 삭제
         }
-        else if(hit.gameObject.tag == "Lever2" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
+        else if (hit.gameObject.tag == "Lever2" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
         {
             lever.LeverActivate();  // 레버 애니메이션 재생
             tower.OpenDoor();       // TowerDoor 애니메이션 재생
+        }
+        // DissapearGround 발판에 닿았을 때
+        if (hit.gameObject.tag == "DissapearGround")
+        {
+            dissapearGround.FallingGroundObject();
         }
     }
 
@@ -242,47 +247,77 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.transform.position = fallingStage1Target.transform.position;
         }
-        else if(other.tag == "RespawnStage2")
+        else if (other.tag == "RespawnStage2")
         {
             gameObject.transform.position = fallingStage2Target.transform.position;
         }
-        // Player2가 화살표대로 가지 않았을 때
-        else if (other.tag == "Respawn1")
+        // Player1이 화살표대로 가지 않았을 때
+        if (other.tag == "Respawn1")
         {
-            if (player2P == true)
+            if (player2P == false)
             {
                 gameObject.transform.position = bridgeTarget.transform.position;
             }
         }
         else if (other.tag == "Respawn1_2")
         {
-            if (player2P == true)
+            if (player2P == false)
             {
                 gameObject.transform.position = bridgeTarget2.transform.position;
             }
         }
-        // Player1이 화살표대로 가지 않았을 때
-        else if (other.tag == "Respawn2")
+        // Player2가 화살표대로 가지 않았을 때
+        if (other.tag == "Respawn2")
         {
-            if (player2P == false)
+            if (player2P == true)
             {
                 gameObject.transform.position = bridgeTarget.transform.position;
             }
         }
         else if (other.tag == "Respawn2_2")
         {
-            if (player2P == false)
+            if (player2P == true)
             {
                 gameObject.transform.position = bridgeTarget2.transform.position;
             }
         }
+        // Player1이 벽을 넘어 뒤를 향했을 때
+        if (other.tag == "Respawn1_1")
+        {
+            if (player2P == false)
+            {
+                gameObject.transform.position = fallingStage1Target.transform.position;
+            }
+        }
+        else if (other.tag == "Respawn3_1")
+        {
+            if (player2P == false)
+            {
+                gameObject.transform.position = fallingStage2Target.transform.position;
+            }
+        }
+        // Player2가 벽을 넘어 뒤를 향했을 때
+        if (other.tag == "Respawn2_1")
+        {
+            if (player2P == true)
+            {
+                gameObject.transform.position = fallingStage1Target.transform.position;
+            }
+        }
+        if (other.tag == "Respawn3_2")
+        {
+            if (player2P == true)
+            {
+                gameObject.transform.position = fallingStage2Target.transform.position;
+            }
+        }
         // Spike라는 태그를 가진 오브젝트에 부딪혔을때 Stage1에 관련된 Spike이므로 fallingStage1Target에서 리스폰
-        else if (other.tag == "Spike")
+        if (other.tag == "Spike")
         {
             gameObject.transform.position = fallingStage1Target.transform.position;
         }
         // Saw라는 태그를 가진 오브젝트에 부딪혔을때 Stage2에 관련된 Saw이므로 fallingStage2Target에서 리스폰
-        else if (other.tag == "Saw")
+        if (other.tag == "Saw")
         {
             gameObject.transform.position = fallingStage2Target.transform.position;
         }

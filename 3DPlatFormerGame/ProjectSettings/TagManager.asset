@@ -20,6 +20,10 @@ TagManager:
   - Tower
   - Saw
   - DissappearGround
+  - Respawn1_1
+  - Respawn2_1
+  - Respawn3_1
+  - Respawn3_2
   layers:
   - Default
   - TransparentFX
