@@ -26,12 +26,17 @@ public class FallingGround : MonoBehaviour
 
     public void FallingGroundObject()
     {
-        StartCoroutine("FallingGroundObejct");
+        StartCoroutine("FallingGroundObejctCoroutine");
     }
 
-    public IEnumerator FallingGroundObejct()
+    private IEnumerator FallingGroundObejctCoroutine()
     {
-        gameObject.transform.position += Vector3.down * Time.deltaTime;
+        //spawnGrassSinglePrefab.transform.position += Vector3.down * Time.deltaTime;
+        //spawnGrassSinglePrefab2P.transform.position += Vector3.down * Time.deltaTime;
+
+        Destroy(spawnGrassSinglePrefab);
+        Destroy(spawnGrassSinglePrefab2P);
+
         yield return new WaitForSeconds(3f);
     }
 

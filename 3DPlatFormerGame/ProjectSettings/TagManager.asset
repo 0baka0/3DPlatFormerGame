@@ -24,6 +24,7 @@ TagManager:
   - Respawn2_1
   - Respawn3_1
   - Respawn3_2
+  - Lever3
   layers:
   - Default
   - TransparentFX

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16946,7 +16946,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1376589454}
   m_Father: {fileID: 193861808}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -59542,6 +59543,87 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4254839422064925396, guid: aabf38c0c0e395748a4aaecbbd97dac0, type: 3}
   m_PrefabInstance: {fileID: 1373399787}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1376589453
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 388487953}
+    m_Modifications:
+    - target: {fileID: 4866138030805492041, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_TagString
+      value: Lever3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903654446181766561, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903654446181766561, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903654446181766561, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.1999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903654446181766561, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 202.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903654446181766561, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903654446181766561, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903654446181766561, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903654446181766561, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903654446181766561, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903654446181766561, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903654446181766561, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712419274209726235, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_Name
+      value: Lever1PHide
+      objectReference: {fileID: 0}
+    - target: {fileID: 5712419274209726235, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+      propertyPath: m_TagString
+      value: Lever3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+--- !u!4 &1376589454 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4903654446181766561, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+  m_PrefabInstance: {fileID: 1376589453}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1376589455 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5712419274209726310, guid: 105968ec08a67ce48a2ad32e60162586, type: 3}
+  m_PrefabInstance: {fileID: 1376589453}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c659b26bd28ca64f9345e88ae57ea92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1378783652 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5905987165552004313, guid: f92e0eb3266ada540beacff9175b4245, type: 3}
@@ -73480,6 +73562,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7720664881025033350}
     - target: {fileID: 1302548745851729647, guid: 91d35c31cdea4734a89d2bbc41ec080c, type: 3}
+      propertyPath: lever3
+      value: 
+      objectReference: {fileID: 1376589455}
+    - target: {fileID: 1302548745851729647, guid: 91d35c31cdea4734a89d2bbc41ec080c, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 846112998}
@@ -73499,6 +73585,10 @@ PrefabInstance:
       propertyPath: bridgeTarget2
       value: 
       objectReference: {fileID: 1957290720}
+    - target: {fileID: 1302548745851729647, guid: 91d35c31cdea4734a89d2bbc41ec080c, type: 3}
+      propertyPath: fallingGround
+      value: 
+      objectReference: {fileID: 1645175377}
     - target: {fileID: 1302548745851729647, guid: 91d35c31cdea4734a89d2bbc41ec080c, type: 3}
       propertyPath: fallingTarget
       value: 
@@ -76569,6 +76659,10 @@ PrefabInstance:
     - target: {fileID: 2379421150181721056, guid: ea21ffecc7d55424b8e59b577354af52, type: 3}
       propertyPath: lever2
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2379421150181721056, guid: ea21ffecc7d55424b8e59b577354af52, type: 3}
+      propertyPath: lever3
+      value: 
       objectReference: {fileID: 4811542390493511384}
     - target: {fileID: 2379421150181721056, guid: ea21ffecc7d55424b8e59b577354af52, type: 3}
       propertyPath: target
@@ -76586,6 +76680,10 @@ PrefabInstance:
       propertyPath: bridgeTarget2
       value: 
       objectReference: {fileID: 122630451}
+    - target: {fileID: 2379421150181721056, guid: ea21ffecc7d55424b8e59b577354af52, type: 3}
+      propertyPath: fallingGround
+      value: 
+      objectReference: {fileID: 1645175377}
     - target: {fileID: 2379421150181721056, guid: ea21ffecc7d55424b8e59b577354af52, type: 3}
       propertyPath: fallingTarget
       value: 
@@ -96994,9 +97092,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1459136776585278090, guid: a7161e9bdba94ca4794904eac8d7c4e0, type: 3}
+      propertyPath: m_TagString
+      value: Lever3
+      objectReference: {fileID: 0}
     - target: {fileID: 1801031912310004952, guid: a7161e9bdba94ca4794904eac8d7c4e0, type: 3}
       propertyPath: m_Name
       value: Lever2PHIde
+      objectReference: {fileID: 0}
+    - target: {fileID: 1801031912310004952, guid: a7161e9bdba94ca4794904eac8d7c4e0, type: 3}
+      propertyPath: m_TagString
+      value: Lever3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7161e9bdba94ca4794904eac8d7c4e0, type: 3}

@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3583048182410149701}
   - component: {fileID: 1611580715994614671}
   - component: {fileID: 1294983768}
+  - component: {fileID: 1056992698185412940}
   m_Layer: 0
   m_Name: GrassSingleFallingGround2P
-  m_TagString: Ground
+  m_TagString: DissappearGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,3 +99,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.02233437, y: 0.022334376, z: 0.019959567}
   m_Center: {x: 0, y: 0, z: -0.000020218087}
+--- !u!54 &1056992698185412940
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963067110917220954}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

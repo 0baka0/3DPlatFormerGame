@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public HazardSpikeTrap hazardSpikeTrap; // HazardSpikeTrap 제어
     public GameObject spikyBallCollection;  // SpikyBall 들을 가지고 있는 오브젝트
     public TransparencyGround transparency; // 안에 있는 Ground들을 관리
-    public FallingGround dissapearGround;    // DissapearGround 제어
+    public FallingGround fallingGround;    // DissapearGround 제어
     //public FallingGround fallingGround2;    // DissapearGround 제어
     public Tower tower;                     // Tower 제어
 
@@ -207,12 +207,12 @@ public class PlayerController : MonoBehaviour
             lever.LeverActivate();              // 레버 애니메이션 재생
             hazardSpikeTrap.SpikeDisabled();    // HazardSpike 애니메이션 재생
         }
-        else if (hit.gameObject.tag == "Lever2" && Input.GetKeyDown(KeyCode.E) && player2P == false)
+        if (hit.gameObject.tag == "Lever2" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
             lever2.LeverActivate();                     // 레버 애니메이션 재생
             transparency.gameObject.SetActive(true);    // 비활성화 였던 지형 활성화
         }
-        else if (hit.gameObject.tag == "Lever3" && Input.GetKeyDown(KeyCode.E) && player2P == false)
+        if (hit.gameObject.tag == "Lever3" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
             lever3.LeverActivate();
             tower.OpenDoor();
@@ -223,15 +223,15 @@ public class PlayerController : MonoBehaviour
             lever.LeverActivate();          // 레버 애니메이션 재생
             Destroy(spikyBallCollection);   // SpikyBall 삭제
         }
-        else if (hit.gameObject.tag == "Lever2" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
+        if (hit.gameObject.tag == "Lever3" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
         {
-            lever.LeverActivate();  // 레버 애니메이션 재생
+            lever3.LeverActivate(); // 레버 애니메이션 재생
             tower.OpenDoor();       // TowerDoor 애니메이션 재생
         }
         // DissapearGround 발판에 닿았을 때
         if (hit.gameObject.tag == "DissapearGround")
         {
-            dissapearGround.FallingGroundObject();
+            fallingGround.FallingGroundObject();
         }
     }
 
