@@ -24,7 +24,13 @@ public class FallingGround : MonoBehaviour
         Instantiate(spawnGrassSinglePrefab2P, spawnGrassSingleVector2P, spawnGrassSinglePrefab2P.transform.rotation, spawnGrassSingleParent);
     }
 
-    public void FallingGroundObject()
+    public void FallingGroundObjectJump()
+    {
+        Destroy(spawnGrassSinglePrefab);
+        Destroy(spawnGrassSinglePrefab2P);
+    }
+
+    public void FallingGroundObjectTime()
     {
         StartCoroutine("FallingGroundObejctCoroutine");
     }
@@ -37,7 +43,7 @@ public class FallingGround : MonoBehaviour
         Destroy(spawnGrassSinglePrefab);
         Destroy(spawnGrassSinglePrefab2P);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
     }
 
 

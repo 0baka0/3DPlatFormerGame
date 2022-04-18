@@ -207,12 +207,12 @@ public class PlayerController : MonoBehaviour
             lever.LeverActivate();              // 레버 애니메이션 재생
             hazardSpikeTrap.SpikeDisabled();    // HazardSpike 애니메이션 재생
         }
-        if (hit.gameObject.tag == "Lever2" && Input.GetKeyDown(KeyCode.E) && player2P == false)
+        else if (hit.gameObject.tag == "Lever2" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
             lever2.LeverActivate();                     // 레버 애니메이션 재생
             transparency.gameObject.SetActive(true);    // 비활성화 였던 지형 활성화
         }
-        if (hit.gameObject.tag == "Lever3" && Input.GetKeyDown(KeyCode.E) && player2P == false)
+        else if (hit.gameObject.tag == "Lever3" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
             lever3.LeverActivate();
             tower.OpenDoor();
@@ -223,15 +223,19 @@ public class PlayerController : MonoBehaviour
             lever.LeverActivate();          // 레버 애니메이션 재생
             Destroy(spikyBallCollection);   // SpikyBall 삭제
         }
-        if (hit.gameObject.tag == "Lever3" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
+        else if (hit.gameObject.tag == "Lever3" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
         {
             lever3.LeverActivate(); // 레버 애니메이션 재생
             tower.OpenDoor();       // TowerDoor 애니메이션 재생
         }
         // DissapearGround 발판에 닿았을 때
+        //if (hit.gameObject.tag == "DissapearGround" && (Input.GetKeyDown(keyCodeJump1P) || Input.GetKeyDown(keyCodeJump2P)))
+        //{
+        //    fallingGround.FallingGroundObjectJump();
+        //}
         if (hit.gameObject.tag == "DissapearGround")
         {
-            fallingGround.FallingGroundObject();
+            fallingGround.FallingGroundObjectTime();
         }
     }
 
@@ -297,14 +301,14 @@ public class PlayerController : MonoBehaviour
             }
         }
         // Player2가 벽을 넘어 뒤를 향했을 때
-        if (other.tag == "Respawn2_1")
+        else if (other.tag == "Respawn2_1")
         {
             if (player2P == true)
             {
                 gameObject.transform.position = fallingStage1Target.transform.position;
             }
         }
-        if (other.tag == "Respawn3_2")
+        else if (other.tag == "Respawn3_2")
         {
             if (player2P == true)
             {
