@@ -25,8 +25,6 @@ public class PlayerController : MonoBehaviour
     public HazardSpikeTrap hazardSpikeTrap; // HazardSpikeTrap 제어
     public GameObject spikyBallCollection;  // SpikyBall 들을 가지고 있는 오브젝트
     public TransparencyGround transparency; // 안에 있는 Ground들을 관리
-    public FallingGround fallingGround;    // DissapearGround 제어
-    //public FallingGround fallingGround2;    // DissapearGround 제어
     public Tower tower;                     // Tower 제어
 
     public bool isJump;                     // 점프 상태 여부
@@ -228,15 +226,6 @@ public class PlayerController : MonoBehaviour
             lever3.LeverActivate(); // 레버 애니메이션 재생
             tower.OpenDoor();       // TowerDoor 애니메이션 재생
         }
-        // DissapearGround 발판에 닿았을 때
-        //if (hit.gameObject.tag == "DissapearGround" && (Input.GetKeyDown(keyCodeJump1P) || Input.GetKeyDown(keyCodeJump2P)))
-        //{
-        //    fallingGround.FallingGroundObjectJump();
-        //}
-        if (hit.gameObject.tag == "DissapearGround")
-        {
-            fallingGround.FallingGroundObjectTime();
-        }
     }
 
     // 리스폰
@@ -315,13 +304,18 @@ public class PlayerController : MonoBehaviour
                 gameObject.transform.position = fallingStage2Target.transform.position;
             }
         }
-        // Spike라는 태그를 가진 오브젝트에 부딪혔을때 Stage1에 관련된 Spike이므로 fallingStage1Target에서 리스폰
+        // Spike라는 태그를 가진 오브젝트에 부딪혔을 때 Stage1에 관련된 Spike이므로 fallingStage1Target에서 리스폰
         if (other.tag == "Spike")
         {
             gameObject.transform.position = fallingStage1Target.transform.position;
         }
-        // Saw라는 태그를 가진 오브젝트에 부딪혔을때 Stage2에 관련된 Saw이므로 fallingStage2Target에서 리스폰
+        // Saw라는 태그를 가진 오브젝트에 부딪혔을 때 Stage2에 관련된 Saw이므로 fallingStage2Target에서 리스폰
         if (other.tag == "Saw")
+        {
+            gameObject.transform.position = fallingStage2Target.transform.position;
+        }
+        // CannonBall이라는 태그를 가진 오브젝트에 부딪혔을 때 Stage2에 관련된 CannonBall이므로 fallingStage2Target에서 리스폰
+        if(other.tag == "CannonBall")
         {
             gameObject.transform.position = fallingStage2Target.transform.position;
         }

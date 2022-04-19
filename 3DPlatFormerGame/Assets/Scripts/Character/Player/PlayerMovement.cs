@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float MoveSpeed
     {
         get => moveSpeed;
-        set => moveSpeed = Mathf.Max(0, value);
+        set => moveSpeed = Mathf.Max(0, value); // value 값을 반환
     }
 
     private void Awake()

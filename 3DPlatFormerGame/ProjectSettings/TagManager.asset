@@ -25,6 +25,11 @@ TagManager:
   - Respawn3_1
   - Respawn3_2
   - Lever3
+  - Wall
+  - Cannon
+  - CannonBall
+  - JumpFalse
+  - JumpTrue
   layers:
   - Default
   - TransparentFX
