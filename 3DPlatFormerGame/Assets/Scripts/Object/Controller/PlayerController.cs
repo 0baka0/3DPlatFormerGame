@@ -79,15 +79,15 @@ public class PlayerController : MonoBehaviour
                 // 그에 따른 속도 증가, 애니메이션 재생, 사운드 재생
                 movement.MoveSpeed = isRun == true ? status.runSpeed : status.walkSpeed;
                 playerAnim.MoveSpeed = isRun == true ? 1 : .5f;
-                audioSource.clip = isRun == true ? audioClipRun : audioClipWalk;
+                //audioSource.clip = isRun == true ? audioClipRun : audioClipWalk;
 
                 // 방향키 입력 여부는 매 프레임 확인하기 때문에
                 // 재생중일 때는 다시 재생하지 않도록 isPlaying으로 체크해서 재생
-                if (audioSource.isPlaying == false)
-                {
-                    audioSource.loop = true;
-                    audioSource.Play();
-                }
+                //if (audioSource.isPlaying == false)
+                //{
+                //    audioSource.loop = true;
+                //    audioSource.Play();
+                //}
             }
             // 제자리에 멈춰있을 떄
             else
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
                 playerAnim.MoveSpeed = 0;   // playerAnim의 속도를 0으로 => Idle 애니메이션 재생
 
                 // 멈췄을 때 사운드가 재생중이면 정지
-                audioSource.Stop();
+                //audioSource.Stop();
             }
 
             // 플레이어의 회전값 * 이동 방향
@@ -119,15 +119,15 @@ public class PlayerController : MonoBehaviour
                 // 그에 따른 속도 증가, 애니메이션 재생, 사운드 재생
                 movement.MoveSpeed = isRun == true ? status.runSpeed : status.walkSpeed;
                 playerAnim.MoveSpeed = isRun == true ? 1 : .5f;
-                audioSource.clip = isRun == true ? audioClipRun : audioClipWalk;
+                //audioSource.clip = isRun == true ? audioClipRun : audioClipWalk;
 
                 // 방향키 입력 여부는 매 프레임 확인하기 때문에
                 // 재생중일 때는 다시 재생하지 않도록 isPlaying으로 체크해서 재생
-                if (audioSource.isPlaying == false)
-                {
-                    audioSource.loop = true;
-                    audioSource.Play();
-                }
+                //if (audioSource.isPlaying == false)
+                //{
+                //    audioSource.loop = true;
+                //    audioSource.Play();
+                //}
             }
             // 제자리에 멈춰있을 떄
             else
@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
                 playerAnim.MoveSpeed = 0;
 
                 // 멈췄을 때 사운드가 재생중이면 정지
-                audioSource.Stop();
+                //audioSource.Stop();
             }
 
             movement.MoveTo(new Vector3(x2, 0, z2));
@@ -234,14 +234,26 @@ public class PlayerController : MonoBehaviour
         // 낙사
         if (other.tag == "Respawn")
         {
+            movement.MoveSpeed = 0;     // 이동 속도를 0으로
+            playerAnim.MoveSpeed = 0;   // playerAnim의 속도를 0으로 => Idle 애니메이션 재생
             gameObject.transform.position = fallingTarget.transform.position;
         }
         else if (other.tag == "RespawnStage1")
         {
+            // Player2는 중간에 달리기, 점프 불가 구간이 있으므로 리스폰 될때 다시 할 수 있게 설정
+            if (player2P == true)
+            {
+                keyCodeRun2P = KeyCode.RightShift;
+                keyCodeJump2P = KeyCode.Space;
+            }
+            movement.MoveSpeed = 0;     // 이동 속도를 0으로
+            playerAnim.MoveSpeed = 0;   // playerAnim의 속도를 0으로 => Idle 애니메이션 재생
             gameObject.transform.position = fallingStage1Target.transform.position;
         }
         else if (other.tag == "RespawnStage2")
         {
+            movement.MoveSpeed = 0;     // 이동 속도를 0으로
+            playerAnim.MoveSpeed = 0;   // playerAnim의 속도를 0으로 => Idle 애니메이션 재생
             gameObject.transform.position = fallingStage2Target.transform.position;
         }
         // Player1이 화살표대로 가지 않았을 때
@@ -303,6 +315,17 @@ public class PlayerController : MonoBehaviour
             {
                 gameObject.transform.position = fallingStage2Target.transform.position;
             }
+        }
+        // JumpFalse라는 태그를 가진 콜라이더에 닿았을 때 점프와, 달리기를 못하게 된다.
+        if(other.tag == "JumpFalse" && player2P == true)
+        {
+            keyCodeRun2P = KeyCode.None;
+            keyCodeJump2P = KeyCode.None;
+        }
+        else if(other.tag == "JumpTrue" && player2P == true)
+        {
+            keyCodeRun2P = KeyCode.RightShift;
+            keyCodeJump2P = KeyCode.Space;
         }
         // Spike라는 태그를 가진 오브젝트에 부딪혔을 때 Stage1에 관련된 Spike이므로 fallingStage1Target에서 리스폰
         if (other.tag == "Spike")
