@@ -4,17 +4,10 @@ using UnityEngine;
 
 public class CannonBall : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "Wall")
-        {
-            Destroy(gameObject);
-        }
-    }
-
+    // Wall 이라는 태그를 가진 Collider에 닿았을 때 삭제
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Wall")
+        if(other.tag == "Wall")
         {
             Destroy(gameObject);
         }

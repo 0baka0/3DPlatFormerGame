@@ -46311,14 +46311,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1570497198822171711}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4092693337110720773}
   m_Father: {fileID: 4154243621817249515}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &160440310158781319
 GameObject:
   m_ObjectHideFlags: 0
@@ -46423,7 +46423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4154243621817249515}
   m_Layer: 0
-  m_Name: BouncerArmature
+  m_Name: SpringArmature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47028,7 +47028,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149445528228}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.31, y: 0.5, z: 10.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6844192511166937106}
@@ -47895,13 +47895,33 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450653451079710}
+  - component: {fileID: 919132149445528229}
   m_Layer: 0
-  m_Name: Bouncer
+  m_Name: Spring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &919132149445528229
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149445528228}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dfc7775480680e34ea78f0e028a8a828, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &919132149457551611
 GameObject:
   m_ObjectHideFlags: 0
@@ -48068,6 +48088,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1302548745851729645, guid: 91d35c31cdea4734a89d2bbc41ec080c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1302548745851729646, guid: 91d35c31cdea4734a89d2bbc41ec080c, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -48148,6 +48172,10 @@ PrefabInstance:
       propertyPath: spikyBallCollection
       value: 
       objectReference: {fileID: 7826272483108102466}
+    - target: {fileID: 1302548745851729648, guid: 91d35c31cdea4734a89d2bbc41ec080c, type: 3}
+      propertyPath: spring
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91d35c31cdea4734a89d2bbc41ec080c, type: 3}
 --- !u!1 &1361312388076348878
@@ -49956,6 +49984,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player2P
       objectReference: {fileID: 0}
+    - target: {fileID: 2379421150181721068, guid: ea21ffecc7d55424b8e59b577354af52, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea21ffecc7d55424b8e59b577354af52, type: 3}
 --- !u!4 &2384737131673410714
@@ -50298,7 +50330,7 @@ GameObject:
   - component: {fileID: 6844192511166937106}
   - component: {fileID: 3000235090544148313}
   m_Layer: 0
-  m_Name: Bouncer
+  m_Name: Spring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50929,14 +50961,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343883470631230530}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 87068311444167056}
   m_Father: {fileID: 543450653451079710}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!137 &4258689969424480219
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -52102,13 +52134,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3266199200935213756}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 543450653451079710}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &7002812109593044098
 Transform:
   m_ObjectHideFlags: 0

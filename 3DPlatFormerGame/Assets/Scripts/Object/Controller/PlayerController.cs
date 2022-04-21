@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    // 매 프레임마다 움직임과, 점프를 호출
     private void Update()
     {
         UpdateMove();
@@ -160,10 +161,10 @@ public class PlayerController : MonoBehaviour
                 //audioSource.Play();
                 isJump = true;                          // 점프를 하는 중이니 isJump를 true로
             }
-            else
-            {
-                audioSource.Stop();
-            }
+            //else
+            //{
+            //    audioSource.Stop();
+            //}
         }
 
         // Player 2
@@ -202,8 +203,8 @@ public class PlayerController : MonoBehaviour
         // Player1의 Lever사용
         if (hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
-            lever.LeverActivate();              // 레버 애니메이션 재생
-            hazardSpikeTrap.SpikeDisabled();    // HazardSpike 애니메이션 재생
+            lever.LeverActivate();                      // 레버 애니메이션 재생
+            hazardSpikeTrap.SpikeDisabled();            // HazardSpike 애니메이션 재생
         }
         else if (hit.gameObject.tag == "Lever2" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
@@ -212,19 +213,19 @@ public class PlayerController : MonoBehaviour
         }
         else if (hit.gameObject.tag == "Lever3" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
-            lever3.LeverActivate();
-            tower.OpenDoor();
+            lever3.LeverActivate();                     // 레버 애니메이션 재생
+            tower.OpenDoor();                           // TowerDoor 애니메이션 재생
         }
         // Player2의 Lever사용
         if (hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
         {
-            lever.LeverActivate();          // 레버 애니메이션 재생
-            Destroy(spikyBallCollection);   // SpikyBall 삭제
+            lever.LeverActivate();                      // 레버 애니메이션 재생
+            Destroy(spikyBallCollection);               // SpikyBall 삭제
         }
         else if (hit.gameObject.tag == "Lever3" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
         {
-            lever3.LeverActivate(); // 레버 애니메이션 재생
-            tower.OpenDoor();       // TowerDoor 애니메이션 재생
+            lever3.LeverActivate();                     // 레버 애니메이션 재생
+            tower.OpenDoor();                           // TowerDoor 애니메이션 재생
         }
     }
 
@@ -234,9 +235,7 @@ public class PlayerController : MonoBehaviour
         // 낙사
         if (other.tag == "Respawn")
         {
-            movement.MoveSpeed = 0;     // 이동 속도를 0으로
-            playerAnim.MoveSpeed = 0;   // playerAnim의 속도를 0으로 => Idle 애니메이션 재생
-            gameObject.transform.position = fallingTarget.transform.position;
+            gameObject.transform.position = fallingTarget.transform.position;           // 리스폰
         }
         else if (other.tag == "RespawnStage1")
         {
@@ -246,29 +245,25 @@ public class PlayerController : MonoBehaviour
                 keyCodeRun2P = KeyCode.RightShift;
                 keyCodeJump2P = KeyCode.Space;
             }
-            movement.MoveSpeed = 0;     // 이동 속도를 0으로
-            playerAnim.MoveSpeed = 0;   // playerAnim의 속도를 0으로 => Idle 애니메이션 재생
-            gameObject.transform.position = fallingStage1Target.transform.position;
+            gameObject.transform.position = fallingStage1Target.transform.position;     // 리스폰
         }
         else if (other.tag == "RespawnStage2")
         {
-            movement.MoveSpeed = 0;     // 이동 속도를 0으로
-            playerAnim.MoveSpeed = 0;   // playerAnim의 속도를 0으로 => Idle 애니메이션 재생
-            gameObject.transform.position = fallingStage2Target.transform.position;
+            gameObject.transform.position = fallingStage2Target.transform.position;     // 리스폰
         }
         // Player1이 화살표대로 가지 않았을 때
         if (other.tag == "Respawn1")
         {
             if (player2P == false)
             {
-                gameObject.transform.position = bridgeTarget.transform.position;
+                gameObject.transform.position = bridgeTarget.transform.position;        // 리스폰
             }
         }
         else if (other.tag == "Respawn1_2")
         {
             if (player2P == false)
             {
-                gameObject.transform.position = bridgeTarget2.transform.position;
+                gameObject.transform.position = bridgeTarget2.transform.position;       // 리스폰
             }
         }
         // Player2가 화살표대로 가지 않았을 때
@@ -276,14 +271,14 @@ public class PlayerController : MonoBehaviour
         {
             if (player2P == true)
             {
-                gameObject.transform.position = bridgeTarget.transform.position;
+                gameObject.transform.position = bridgeTarget.transform.position;        // 리스폰
             }
         }
         else if (other.tag == "Respawn2_2")
         {
             if (player2P == true)
             {
-                gameObject.transform.position = bridgeTarget2.transform.position;
+                gameObject.transform.position = bridgeTarget2.transform.position;       // 리스폰
             }
         }
         // Player1이 벽을 넘어 뒤를 향했을 때
@@ -291,14 +286,14 @@ public class PlayerController : MonoBehaviour
         {
             if (player2P == false)
             {
-                gameObject.transform.position = fallingStage1Target.transform.position;
+                gameObject.transform.position = fallingStage1Target.transform.position; // 리스폰
             }
         }
         else if (other.tag == "Respawn3_1")
         {
             if (player2P == false)
             {
-                gameObject.transform.position = fallingStage2Target.transform.position;
+                gameObject.transform.position = fallingStage2Target.transform.position; // 리스폰
             }
         }
         // Player2가 벽을 넘어 뒤를 향했을 때
@@ -306,14 +301,14 @@ public class PlayerController : MonoBehaviour
         {
             if (player2P == true)
             {
-                gameObject.transform.position = fallingStage1Target.transform.position;
+                gameObject.transform.position = fallingStage1Target.transform.position; // 리스폰
             }
         }
         else if (other.tag == "Respawn3_2")
         {
             if (player2P == true)
             {
-                gameObject.transform.position = fallingStage2Target.transform.position;
+                gameObject.transform.position = fallingStage2Target.transform.position; // 리스폰
             }
         }
         // JumpFalse라는 태그를 가진 콜라이더에 닿았을 때 점프와, 달리기를 못하게 된다.
@@ -322,6 +317,7 @@ public class PlayerController : MonoBehaviour
             keyCodeRun2P = KeyCode.None;
             keyCodeJump2P = KeyCode.None;
         }
+        // JumpTrue라는 태그를 가진 콜라이더에 닿았을 때 점프와, 달리기를 다시 가능하게 한다.
         else if(other.tag == "JumpTrue" && player2P == true)
         {
             keyCodeRun2P = KeyCode.RightShift;
@@ -330,17 +326,17 @@ public class PlayerController : MonoBehaviour
         // Spike라는 태그를 가진 오브젝트에 부딪혔을 때 Stage1에 관련된 Spike이므로 fallingStage1Target에서 리스폰
         if (other.tag == "Spike")
         {
-            gameObject.transform.position = fallingStage1Target.transform.position;
+            gameObject.transform.position = fallingStage1Target.transform.position;     // 리스폰
         }
         // Saw라는 태그를 가진 오브젝트에 부딪혔을 때 Stage2에 관련된 Saw이므로 fallingStage2Target에서 리스폰
         if (other.tag == "Saw")
         {
-            gameObject.transform.position = fallingStage2Target.transform.position;
+            gameObject.transform.position = fallingStage2Target.transform.position;     // 리스폰
         }
         // CannonBall이라는 태그를 가진 오브젝트에 부딪혔을 때 Stage2에 관련된 CannonBall이므로 fallingStage2Target에서 리스폰
         if(other.tag == "CannonBall")
         {
-            gameObject.transform.position = fallingStage2Target.transform.position;
+            gameObject.transform.position = fallingStage2Target.transform.position;     // 리스폰
         }
     }
 

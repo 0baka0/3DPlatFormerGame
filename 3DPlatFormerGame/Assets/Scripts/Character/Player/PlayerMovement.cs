@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float jumpForce;         // 점프 힘
     public float gravity;           // 중력 계수
+    public float spring = 2f;
 
     public float rotationSpeed;     // 회전 속도
 
@@ -75,5 +76,10 @@ public class PlayerMovement : MonoBehaviour
             // 위로 올라간다
             moveForce.y = jumpForce;
         }
+    }
+
+    public void Spring()
+    {
+        moveForce.y = jumpForce * spring;
     }
 }
