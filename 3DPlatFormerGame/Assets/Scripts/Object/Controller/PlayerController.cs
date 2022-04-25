@@ -11,30 +11,31 @@ public class PlayerController : MonoBehaviour
     private KeyCode keyCodeJump2P = KeyCode.Space;      // 점프 키 2P
 
     [Header("Audio Clips Afterwards Change")]
-    public AudioClip audioClipWalk;         // 걷기 사운드
-    public AudioClip audioClipRun;          // 달리기 사운드
-    public AudioClip audioClipJump;         // 점프 사운드
+    public AudioClip audioClipWalk;         //  걷기 사운드
+    public AudioClip audioClipRun;          //  달리기 사운드
+    public AudioClip audioClipJump;         //  점프 사운드
 
-    private PlayerMovement movement;        // 키보드 입력으로 플레이어 이동, 점프
-    private Status status;                  // 이동속도 등의 플레이어 정보
-    private PlayerAnim playerAnim;          // 애니메이션 재생 제어
-    private AudioSource audioSource;        // 사운드 재생 제어
-    public Lever lever;                     // Lever 제어
-    public Lever lever2;                    // Lever2 제어
-    public Lever lever3;                    // Lever3 제어
-    public HazardSpikeTrap hazardSpikeTrap; // HazardSpikeTrap 제어
-    public GameObject spikyBallCollection;  // SpikyBall 들을 가지고 있는 오브젝트
-    public TransparencyGround transparency; // 안에 있는 Ground들을 관리
-    public Tower tower;                     // Tower 제어
+    private PlayerMovement movement;        //  키보드 입력으로 플레이어 이동, 점프
+    private Status status;                  //  이동속도 등의 플레이어 정보
+    private PlayerAnim playerAnim;          //  애니메이션 재생 제어
+    private AudioSource audioSource;        //  사운드 재생 제어
+    public Lever lever;                     //
+    public Lever lever2;                    //  Lever 제어
+    public Lever lever3;                    //
+    public HazardSpikeTrap hazardSpikeTrap; //  HazardSpikeTrap 제어
+    public GameObject spikyBallCollection;  //  SpikyBall 들을 가지고 있는 오브젝트
+    public TransparencyGround transparency; //  안에 있는 Ground들을 관리
+    public Tower tower;                     //  Tower 제어
+    public Spring spring;                   //  Spring 제어
 
-    public bool isJump;                     // 점프 상태 여부
-    public bool player2P;                   // 1P와 2P를 구분
+    public bool isJump;                     //  점프 상태 여부
+    public bool player2P;                   //  1P와 2P를 구분
 
-    public GameObject fallingTarget;        // 낙사 했을 때 리스폰 될 TargetPos
-    public GameObject bridgeTarget;         // 화살표대로 가지 않았을 때 리스폰될 TargetPos
-    public GameObject bridgeTarget2;        // 화살표대로 가지 않았을 때 리스폰될 TargetPos
-    public GameObject fallingStage1Target;  // Stage1에서 낙사를 하거나 Spike 태그를 가진 오브젝트에 닿았을 때 리스폰 될 TargetPos
-    public GameObject fallingStage2Target;  // Stage2에서 낙사를 하거나 리스폰 될 TargetPos
+    public GameObject fallingTarget;        //  낙사 했을 때 리스폰 될 TargetPos
+    public GameObject bridgeTarget;         //  화살표대로 가지 않았을 때 리스폰될 TargetPos
+    public GameObject bridgeTarget2;        //  화살표대로 가지 않았을 때 리스폰될 TargetPos
+    public GameObject fallingStage1Target;  //  Stage1에서 낙사를 하거나 Spike 태그를 가진 오브젝트에 닿았을 때 리스폰 될 TargetPos
+    public GameObject fallingStage2Target;  //  Stage2에서 낙사를 하거나 리스폰 될 TargetPos
 
     private void Awake()
     {
@@ -195,10 +196,18 @@ public class PlayerController : MonoBehaviour
             hit.gameObject.tag == "Lever" || hit.gameObject.tag == "Object" || hit.gameObject.tag == "Lever2" || hit.gameObject.tag == "Lever3" ||
             hit.gameObject.tag == "Tower" || hit.gameObject.tag == "DissappearGround")
         {
-            // PlayerJump Animation을 비활성화 시키면서 PlayerLand Animtion을 활성화한 후
+            // PlayerJump 애니메이션을 비활성화 시키면서 PlayerLand Animtion을 활성화한 후
             // ExitNode로 나가 Movement Blend로 다시 진입
             playerAnim.PlayBool("isJump", false);
             isJump = false;
+        }
+        // Spring이라는 태그에 닿았을 때
+        else if(hit.gameObject.tag == "Spring")
+        {
+            // PlayerJump 애니메이션을 비활성화 시킴으로써 PlayerIdle 상태로 전환
+            playerAnim.PlayBool("isJump", false);
+            spring.PutSpring();                         // Spring 애니메이션 재생
+
         }
         // Player1의 Lever사용
         if (hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.E) && player2P == false)

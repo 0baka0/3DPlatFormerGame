@@ -30,6 +30,7 @@ TagManager:
   - CannonBall
   - JumpFalse
   - JumpTrue
+  - Spring
   layers:
   - Default
   - TransparentFX
