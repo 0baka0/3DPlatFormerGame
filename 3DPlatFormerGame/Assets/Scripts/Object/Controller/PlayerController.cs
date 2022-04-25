@@ -11,31 +11,33 @@ public class PlayerController : MonoBehaviour
     private KeyCode keyCodeJump2P = KeyCode.Space;      // 점프 키 2P
 
     [Header("Audio Clips Afterwards Change")]
-    public AudioClip audioClipWalk;         //  걷기 사운드
-    public AudioClip audioClipRun;          //  달리기 사운드
-    public AudioClip audioClipJump;         //  점프 사운드
+    public AudioClip audioClipWalk;         // 걷기 사운드
+    public AudioClip audioClipRun;          // 달리기 사운드
+    public AudioClip audioClipJump;         // 점프 사운드
 
-    private PlayerMovement movement;        //  키보드 입력으로 플레이어 이동, 점프
-    private Status status;                  //  이동속도 등의 플레이어 정보
-    private PlayerAnim playerAnim;          //  애니메이션 재생 제어
-    private AudioSource audioSource;        //  사운드 재생 제어
+    private PlayerMovement movement;        // 키보드 입력으로 플레이어 이동, 점프
+    private Status status;                  // 이동속도 등의 플레이어 정보
+    private PlayerAnim playerAnim;          // 애니메이션 재생 제어
+    private AudioSource audioSource;        // 사운드 재생 제어
     public Lever lever;                     //
-    public Lever lever2;                    //  Lever 제어
+    public Lever lever2;                    // Lever 제어
     public Lever lever3;                    //
-    public HazardSpikeTrap hazardSpikeTrap; //  HazardSpikeTrap 제어
-    public GameObject spikyBallCollection;  //  SpikyBall 들을 가지고 있는 오브젝트
-    public TransparencyGround transparency; //  안에 있는 Ground들을 관리
-    public Tower tower;                     //  Tower 제어
-    public Spring spring;                   //  Spring 제어
+    public HazardSpikeTrap hazardSpikeTrap; // HazardSpikeTrap 제어
+    public GameObject spikyBallCollection;  // SpikyBall 들을 가지고 있는 오브젝트
+    public TransparencyGround transparency; // 안에 있는 Ground들을 관리
+    public Tower tower;                     // Tower 제어
+    public Spring spring;                   // Spring 제어
+    public DissapearGround dissapearGround; // DissapearGround 제어
+    public GameObject dissapearGroundObject;// 생성된 DissapearGround
 
-    public bool isJump;                     //  점프 상태 여부
-    public bool player2P;                   //  1P와 2P를 구분
+    public bool isJump;                     // 점프 상태 여부
+    public bool player2P;                   // 1P와 2P를 구분
 
-    public GameObject fallingTarget;        //  낙사 했을 때 리스폰 될 TargetPos
-    public GameObject bridgeTarget;         //  화살표대로 가지 않았을 때 리스폰될 TargetPos
-    public GameObject bridgeTarget2;        //  화살표대로 가지 않았을 때 리스폰될 TargetPos
-    public GameObject fallingStage1Target;  //  Stage1에서 낙사를 하거나 Spike 태그를 가진 오브젝트에 닿았을 때 리스폰 될 TargetPos
-    public GameObject fallingStage2Target;  //  Stage2에서 낙사를 하거나 리스폰 될 TargetPos
+    public GameObject fallingTarget;        // 낙사 했을 때 리스폰 될 TargetPos
+    public GameObject bridgeTarget;         // 화살표대로 가지 않았을 때 리스폰될 TargetPos
+    public GameObject bridgeTarget2;        // 화살표대로 가지 않았을 때 리스폰될 TargetPos
+    public GameObject fallingStage1Target;  // Stage1에서 낙사를 하거나 Spike 태그를 가진 오브젝트에 닿았을 때 리스폰 될 TargetPos
+    public GameObject fallingStage2Target;  // Stage2에서 낙사를 하거나 리스폰 될 TargetPos
 
     private void Awake()
     {
@@ -224,6 +226,10 @@ public class PlayerController : MonoBehaviour
         {
             lever3.LeverActivate();                     // 레버 애니메이션 재생
             tower.OpenDoor();                           // TowerDoor 애니메이션 재생
+        }
+        if(hit.gameObject.tag == "DissappearGround")
+        {
+            dissapearGround.DissapearGroundPlayer(dissapearGroundObject);
         }
         // Player2의 Lever사용
         if (hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)

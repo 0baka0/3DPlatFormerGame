@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f834851a37ad24ab10ab8262f22ed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hazardSpikeTrap: {fileID: 2069991490845710979}
 --- !u!1 &5884679574334618339
 GameObject:
   m_ObjectHideFlags: 0
