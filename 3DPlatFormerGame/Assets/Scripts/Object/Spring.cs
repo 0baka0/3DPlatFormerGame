@@ -6,27 +6,22 @@ public class Spring : MonoBehaviour
 {
     private Animator animator;
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
+    // 스프링을 밟았을 때 나타나는 애니메이션
     public void PutSpring()
     {
+        // 스프링 애니메이션 재생
         animator.SetBool("spring", true);
     }
 
+    // 스프링 애니메이션이 끝나고 돌아가는 상태
     public void RestorationSpring()
     {
+        // 스프링 애니메이션 재생 후, 원상태로 복구
         animator.SetBool("spring", false);
-    }
-
-    // 특정 태그를 가진 오브젝트의 힘을 위로 세게 보낸다.
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-
-        }
     }
 }

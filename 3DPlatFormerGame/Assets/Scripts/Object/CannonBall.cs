@@ -9,6 +9,7 @@ public class CannonBall : MonoBehaviour
     {
         if(other.tag == "Wall")
         {
+            // 대포알 삭제
             Destroy(gameObject);
         }
     }
