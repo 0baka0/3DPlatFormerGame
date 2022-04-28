@@ -31,6 +31,9 @@ TagManager:
   - JumpFalse
   - JumpTrue
   - Spring
+  - Block
+  - Exclamation
+  - Question
   layers:
   - Default
   - TransparentFX

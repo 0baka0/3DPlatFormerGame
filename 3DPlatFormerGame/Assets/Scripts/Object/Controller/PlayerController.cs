@@ -27,9 +27,10 @@ public class PlayerController : MonoBehaviour
     public TransparencyGround transparency; // 안에 있는 Ground들을 관리
     public Tower tower;                     // Tower 제어
     public Spring spring;                   // Spring 제어
-    public DissapearGround dissapearGround; // DissapearGround 제어
-    public GameObject dissapearObject;      // 생성된 DissapearGround
+    public DisappearGround dissapearGround; // DissapearGround 제어
+    public GameObject disappearObject;      // 생성된 DissapearGround
     public GameObject dissapearObject2;     // 생성된 DissapearGround
+    public GameObject changeBox;
 
     public bool isJump;                     // 점프 상태 여부
     public bool player2P;                   // 1P와 2P를 구분
@@ -197,7 +198,7 @@ public class PlayerController : MonoBehaviour
         // 특정 태그를 가지고 있는 오브젝트(땅, 플레이어, 다리 등)를 밟을 때 점프 초기화
         if (hit.gameObject.tag == "Ground" || hit.gameObject.tag == "Player" || hit.gameObject.tag == "Bridge" || hit.gameObject.tag == "Arrow" ||
             hit.gameObject.tag == "Lever" || hit.gameObject.tag == "Object" || hit.gameObject.tag == "Lever2" || hit.gameObject.tag == "Lever3" ||
-            hit.gameObject.tag == "Tower" || hit.gameObject.tag == "DissappearGround")
+            hit.gameObject.tag == "Tower" || hit.gameObject.tag == "DissappearGround" || hit.gameObject.tag == "Exclamation" || hit.gameObject.tag == "Question")
         {
             // PlayerJump 애니메이션을 비활성화 시키면서 PlayerLand Animtion을 활성화한 후
             // ExitNode로 나가 Movement Blend로 다시 진입
@@ -211,6 +212,12 @@ public class PlayerController : MonoBehaviour
             playerAnim.PlayBool("isJump", false);
             spring.PutSpring();                         // Spring 애니메이션 재생
 
+        }
+        // DissappearGround라는 태그를 가진 땅에 닿았을 때
+        if(hit.gameObject.tag == "DissappearGround")
+        {
+            // 일정 시간이 지난 후 그 땅을 삭제
+            dissapearGround.DisappearGroundPlayer(disappearObject);
         }
         // Player1의 Lever사용
         if (hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.E) && player2P == false)
@@ -228,11 +235,6 @@ public class PlayerController : MonoBehaviour
             lever3.LeverActivate();                     // 레버 애니메이션 재생
             tower.OpenDoor();                           // TowerDoor 애니메이션 재생
         }
-        if(hit.gameObject.tag == "DissappearGround")
-        {
-            //dissapearGround.DissapearGroundPlayer(dissapearObject);
-            dissapearGround.FallingGroundPlayer();
-        }
         // Player2의 Lever사용
         if (hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
         {
@@ -243,6 +245,11 @@ public class PlayerController : MonoBehaviour
         {
             lever3.LeverActivate();                     // 레버 애니메이션 재생
             tower.OpenDoor();                           // TowerDoor 애니메이션 재생
+        }
+        // ChangeBox
+        if(hit.gameObject.tag == "Exclamation")
+        {
+
         }
     }
 
@@ -267,7 +274,7 @@ public class PlayerController : MonoBehaviour
         else if (other.tag == "RespawnStage2")
         {
             gameObject.transform.position = fallingStage2Target.transform.position;     // 리스폰
-            dissapearGround.SpawnGround(dissapearObject, dissapearObject2);
+            dissapearGround.SpawnGround(disappearObject, dissapearObject2);
         }
         // Player1이 화살표대로 가지 않았을 때
         if (other.tag == "Respawn1")
@@ -312,7 +319,7 @@ public class PlayerController : MonoBehaviour
             if (player2P == false)
             {
                 gameObject.transform.position = fallingStage2Target.transform.position; // 리스폰
-                dissapearGround.SpawnGround(dissapearObject, dissapearObject2);
+                dissapearGround.SpawnGround(disappearObject, dissapearObject2);
             }
         }
         // Player2가 벽을 넘어 뒤를 향했을 때
@@ -328,17 +335,17 @@ public class PlayerController : MonoBehaviour
             if (player2P == true)
             {
                 gameObject.transform.position = fallingStage2Target.transform.position; // 리스폰
-                dissapearGround.SpawnGround(dissapearObject, dissapearObject2);
+                dissapearGround.SpawnGround(disappearObject, dissapearObject2);
             }
         }
-        // JumpFalse라는 태그를 가진 콜라이더에 닿았을 때 점프와, 달리기를 못하게 된다.
-        if(other.tag == "JumpFalse" && player2P == true)
+        // JumpFalse라는 태그를 가진 콜라이더에 닿았을 때 점프와, 달리기를 못하게
+        if (other.tag == "JumpFalse" && player2P == true)
         {
             keyCodeRun2P = KeyCode.None;
             keyCodeJump2P = KeyCode.None;
         }
-        // JumpTrue라는 태그를 가진 콜라이더에 닿았을 때 점프와, 달리기를 다시 가능하게 한다.
-        else if(other.tag == "JumpTrue" && player2P == true)
+        // JumpTrue라는 태그를 가진 콜라이더에 닿았을 때 점프와, 달리기를 다시 가능하게
+        else if (other.tag == "JumpTrue" && player2P == true)
         {
             keyCodeRun2P = KeyCode.RightShift;
             keyCodeJump2P = KeyCode.Space;
@@ -352,10 +359,15 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Saw")
         {
             gameObject.transform.position = fallingStage2Target.transform.position;     // 리스폰
-            dissapearGround.SpawnGround(dissapearObject, dissapearObject2);
+            dissapearGround.SpawnGround(disappearObject, dissapearObject2);
         }
         // CannonBall이라는 태그를 가진 오브젝트에 부딪혔을 때 Stage2에 관련된 CannonBall이므로 fallingStage2Target에서 리스폰
         if(other.tag == "CannonBall")
+        {
+            gameObject.transform.position = fallingStage2Target.transform.position;     // 리스폰
+        }
+        // Block이라는 태그를 가진 콜라이더에 닿았을 때 Stage2에 관련되 BlockCollider이므로 fallingStage2Target에서 리스폰
+        if(other.tag == "Block")
         {
             gameObject.transform.position = fallingStage2Target.transform.position;     // 리스폰
         }
