@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3625993803714747359}
   m_Layer: 0
   m_Name: QuestionBox
-  m_TagString: Untagged
+  m_TagString: Question
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

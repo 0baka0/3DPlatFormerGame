@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     public DisappearGround dissapearGround; // DissapearGround 제어
     public GameObject disappearObject;      // 생성된 DissapearGround
     public GameObject dissapearObject2;     // 생성된 DissapearGround
-    public GameObject changeBox;
+    public ChangeBox changeBox;
 
     public bool isJump;                     // 점프 상태 여부
     public bool player2P;                   // 1P와 2P를 구분
@@ -198,7 +198,8 @@ public class PlayerController : MonoBehaviour
         // 특정 태그를 가지고 있는 오브젝트(땅, 플레이어, 다리 등)를 밟을 때 점프 초기화
         if (hit.gameObject.tag == "Ground" || hit.gameObject.tag == "Player" || hit.gameObject.tag == "Bridge" || hit.gameObject.tag == "Arrow" ||
             hit.gameObject.tag == "Lever" || hit.gameObject.tag == "Object" || hit.gameObject.tag == "Lever2" || hit.gameObject.tag == "Lever3" ||
-            hit.gameObject.tag == "Tower" || hit.gameObject.tag == "DissappearGround" || hit.gameObject.tag == "Exclamation" || hit.gameObject.tag == "Question")
+            hit.gameObject.tag == "Tower" || hit.gameObject.tag == "DissappearGround" || hit.gameObject.tag == "Exclamation" || hit.gameObject.tag == "Question" ||
+            hit.gameObject.tag == "Box")
         {
             // PlayerJump 애니메이션을 비활성화 시키면서 PlayerLand Animtion을 활성화한 후
             // ExitNode로 나가 Movement Blend로 다시 진입
@@ -246,10 +247,10 @@ public class PlayerController : MonoBehaviour
             lever3.LeverActivate();                     // 레버 애니메이션 재생
             tower.OpenDoor();                           // TowerDoor 애니메이션 재생
         }
-        // ChangeBox
-        if(hit.gameObject.tag == "Exclamation")
+        // ChangeBox 물음표 박스를 밟았을 때 느낌표로 바뀐다.
+        if(hit.gameObject.tag == "Question")
         {
-
+            changeBox.ChangeBoxQuestion();
         }
     }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8294766030688458050}
   m_Layer: 0
   m_Name: ExclamationBox
-  m_TagString: Untagged
+  m_TagString: Exclamation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
