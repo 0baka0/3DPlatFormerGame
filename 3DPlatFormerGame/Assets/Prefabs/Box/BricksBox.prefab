@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 6143002439009187185}
   - component: {fileID: 7129074783799425748}
   - component: {fileID: 4975203217687170590}
+  - component: {fileID: 7321519703365694276}
   m_Layer: 0
   m_Name: BricksBox
-  m_TagString: Box
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,3 +83,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7321519703365694276
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6776655780959514571}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.02044589, y: 0.020607818, z: 0.020275107}
+  m_Center: {x: -0.000021162443, y: 0, z: 0.00013566439}

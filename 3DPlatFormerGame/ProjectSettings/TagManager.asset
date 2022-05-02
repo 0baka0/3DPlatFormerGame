@@ -35,6 +35,7 @@ TagManager:
   - Exclamation
   - Question
   - Box
+  - Stair
   layers:
   - Default
   - TransparentFX

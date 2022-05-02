@@ -198,8 +198,7 @@ public class PlayerController : MonoBehaviour
         // 특정 태그를 가지고 있는 오브젝트(땅, 플레이어, 다리 등)를 밟을 때 점프 초기화
         if (hit.gameObject.tag == "Ground" || hit.gameObject.tag == "Player" || hit.gameObject.tag == "Bridge" || hit.gameObject.tag == "Arrow" ||
             hit.gameObject.tag == "Lever" || hit.gameObject.tag == "Object" || hit.gameObject.tag == "Lever2" || hit.gameObject.tag == "Lever3" ||
-            hit.gameObject.tag == "Tower" || hit.gameObject.tag == "DissappearGround" || hit.gameObject.tag == "Exclamation" || hit.gameObject.tag == "Question" ||
-            hit.gameObject.tag == "Box")
+            hit.gameObject.tag == "Tower" || hit.gameObject.tag == "DissappearGround" || hit.gameObject.tag == "Box")
         {
             // PlayerJump 애니메이션을 비활성화 시키면서 PlayerLand Animtion을 활성화한 후
             // ExitNode로 나가 Movement Blend로 다시 진입
@@ -251,6 +250,14 @@ public class PlayerController : MonoBehaviour
         if(hit.gameObject.tag == "Question")
         {
             changeBox.ChangeBoxQuestion();
+        }
+        // Start이라는 태그를 가진 계단을 밟았을 때 점프가 안되게한다.
+        if(hit.gameObject.tag == "Stair")
+        {
+            // PlayerJump 애니메이션을 비활성화시키면서 점프로 계단에 진입했을 시 점프가 끝난 후, 애니메이션을 비활성화 시켜야 걷는, 달리는 애니메이션이 재생된다.
+            playerAnim.PlayBool("isJump", false);
+            // 점프가 안되게 isJump를 true로 바꿈 (이러면 땅에 닿았을 때 다시 false로 바껴서 점프가 가능해진다.)
+            isJump = true;
         }
     }
 
