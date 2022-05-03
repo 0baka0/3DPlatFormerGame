@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public Lever lever2;                    // Lever 제어
     public Lever lever3;                    //
     public HazardSpikeTrap hazardSpikeTrap; // HazardSpikeTrap 제어
+    public Transform HazardSpikeTrap2P;
     public GameObject spikyBallCollection;  // SpikyBall 들을 가지고 있는 오브젝트
     public TransparencyGround transparency; // 안에 있는 Ground들을 관리
     public Tower tower;                     // Tower 제어
@@ -223,7 +224,8 @@ public class PlayerController : MonoBehaviour
         if (hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
             lever.LeverActivate();                      // 레버 애니메이션 재생
-            hazardSpikeTrap.SpikeDisabled();            // HazardSpike 애니메이션 재생
+            GameObject.Find(hazardSpikeTrap.name).GetComponent<HazardSpikeTrap>().SpikeDisabled();
+            //hazardSpikeTrap.SpikeDisabled();            // HazardSpike 애니메이션 재생
         }
         else if (hit.gameObject.tag == "Lever2" && Input.GetKeyDown(KeyCode.E) && player2P == false)
         {
