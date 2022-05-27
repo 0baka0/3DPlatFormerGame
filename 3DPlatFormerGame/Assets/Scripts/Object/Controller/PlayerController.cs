@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,20 +28,26 @@ public class PlayerController : MonoBehaviour
     public GameObject spikyBallCollection;  // SpikyBall 들을 가지고 있는 오브젝트
     public TransparencyGround transparency; // 안에 있는 Ground들을 관리
     public Tower tower;                     // Tower 제어
-    public Spring spring;                   // Spring 제어
     public DisappearGround dissapearGround; // DissapearGround 제어
     public GameObject disappearObject;      // 생성된 DissapearGround
     public GameObject dissapearObject2;     // 생성된 DissapearGround
-    public ChangeBox changeBox;
+    public ChangeBox changeBox;             // ChangeBox 제어
+    public Stair stair;                     // 계단
+
+    public GameClearUI clearUI;             // GameClearUI 제어
+    public GameObject clearUIObject;        // 활성화 될 GameObjectUI
+    public Button clearButton;              // 활성화 될 Buttonobject
 
     public bool isJump;                     // 점프 상태 여부
     public bool player2P;                   // 1P와 2P를 구분
+    public bool clearBool = false;          // 게임 클리어 시 움직일 bool값
 
     public GameObject fallingTarget;        // 낙사 했을 때 리스폰 될 TargetPos
     public GameObject bridgeTarget;         // 화살표대로 가지 않았을 때 리스폰될 TargetPos
     public GameObject bridgeTarget2;        // 화살표대로 가지 않았을 때 리스폰될 TargetPos
     public GameObject fallingStage1Target;  // Stage1에서 낙사를 하거나 Spike 태그를 가진 오브젝트에 닿았을 때 리스폰 될 TargetPos
     public GameObject fallingStage2Target;  // Stage2에서 낙사를 하거나 리스폰 될 TargetPos
+
 
     private void Awake()
     {
@@ -207,13 +214,13 @@ public class PlayerController : MonoBehaviour
             isJump = false;
         }
         // Spring이라는 태그에 닿았을 때
-        else if(hit.gameObject.tag == "Spring")
-        {
-            // PlayerJump 애니메이션을 비활성화 시킴으로써 PlayerIdle 상태로 전환
-            playerAnim.PlayBool("isJump", false);
-            spring.PutSpring();                         // Spring 애니메이션 재생
+        //else if(hit.gameObject.tag == "Spring")
+        //{
+        //    // PlayerJump 애니메이션을 비활성화 시킴으로써 PlayerIdle 상태로 전환
+        //    playerAnim.PlayBool("isJump", false);
+        //    spring.PutSpring();                         // Spring 애니메이션 재생
 
-        }
+        //}
         // DissappearGround라는 태그를 가진 땅에 닿았을 때
         if(hit.gameObject.tag == "DissappearGround")
         {
@@ -236,6 +243,7 @@ public class PlayerController : MonoBehaviour
         {
             lever3.LeverActivate();                     // 레버 애니메이션 재생
             tower.OpenDoor();                           // TowerDoor 애니메이션 재생
+            stair.gameObject.SetActive(true);
         }
         // Player2의 Lever사용
         if (hit.gameObject.tag == "Lever" && Input.GetKeyDown(KeyCode.LeftBracket) && player2P == true)
@@ -380,6 +388,16 @@ public class PlayerController : MonoBehaviour
         if(other.tag == "Block")
         {
             gameObject.transform.position = fallingStage2Target.transform.position;     // 리스폰
+        }
+        // TowerClear라는 태그를 가진 콜라이더에 닿았을 때 임시로 게임 클리어를 만들어놓음
+        if(other.tag == "TowerClear")
+        {
+            // UI창 띄우면서 임시 게임 클리어 창을 활성화
+            clearUI.Clear(clearUIObject);
+        }
+        else if(other.tag == "TowerClear")
+        {
+
         }
     }
 

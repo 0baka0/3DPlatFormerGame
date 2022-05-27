@@ -36,6 +36,7 @@ TagManager:
   - Question
   - Box
   - Stair
+  - TowerClear
   layers:
   - Default
   - TransparentFX
