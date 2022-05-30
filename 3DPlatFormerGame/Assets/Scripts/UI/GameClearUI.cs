@@ -5,31 +5,34 @@ using UnityEngine.UI;
 
 public class GameClearUI : MonoBehaviour
 {
-    // 플레이어가 도착하면 움직임을 멈추고 다른 플레이어를 기다려야함
-    // 도착했을 때 UI창을 띄움
-    // bool 값 하나를 false일 때 true로 만듬
-    // 다른 창이 또 활성화 됐을 때 이미 그 bool값이 true 일 때 GameClear버튼을 활성화 시킴
-
-    public GameObject player1Clear;
-    public GameObject player2Clear;
-    public Button gameClear1PButton;
-    public Button gameClear2PButton;
+    public GameObject player1Clear;     // Player1의 클리어 Panel
+    public GameObject player2Clear;     // Player2의 클리어 Panel
+    public Button gameClear1PButton;    // Player1의 클리어 버튼
+    public Button gameClear2PButton;    // Player2의 클리어 버튼
 
     private void Start()
     {
-        player1Clear.SetActive(false);
-        player2Clear.SetActive(false);
-        gameClear1PButton.gameObject.SetActive(false);
-        gameClear2PButton.gameObject.SetActive(false);
+        player1Clear.SetActive(false);                  // 시작 할 때 비활성화 시킨다.
+        player2Clear.SetActive(false);                  // 시작 할 때 비활성화 시킨다.
+        gameClear1PButton.gameObject.SetActive(false);  // 시작 할 때 비활성화 시킨다.
+        gameClear2PButton.gameObject.SetActive(false);  // 시작 할 때 비활성화 시킨다.
     }
 
+    // Player1과 Player2가 다르기 때문에 ClearPanel을 따로 활성화시킨다.
     public void Clear(GameObject gameObject)
     {
         gameObject.SetActive(true);
     }
 
+    // Player1과 Player2가 다르기 때문에 ClearButton을 따로 활성화시킨다.
     public void ClearButton(Button button)
     {
         button.gameObject.SetActive(true);
+    }
+
+    // gameClearButton을 눌렀을 때 게임을 종료 시킨다.
+    public void GameClear()
+    {
+        Application.Quit();
     }
 }

@@ -24,19 +24,24 @@ public class PlayerController : MonoBehaviour
     public Lever lever2;                    // Lever 제어
     public Lever lever3;                    //
     public HazardSpikeTrap hazardSpikeTrap; // HazardSpikeTrap 제어
-    public Transform HazardSpikeTrap2P;
     public GameObject spikyBallCollection;  // SpikyBall 들을 가지고 있는 오브젝트
     public TransparencyGround transparency; // 안에 있는 Ground들을 관리
     public Tower tower;                     // Tower 제어
     public DisappearGround dissapearGround; // DissapearGround 제어
     public GameObject disappearObject;      // 생성된 DissapearGround
     public GameObject dissapearObject2;     // 생성된 DissapearGround
+    public GameObject wrongObject;          // 오답 오브젝트
     public ChangeBox changeBox;             // ChangeBox 제어
+    public GameObject bridgeObject;         // ChangeBox의 물음표 박스가 느낌표로 바뀌었을 때 생길 다리
     public Stair stair;                     // 계단
+    public GameObject gameClearCheck;       // 게임을 클리어 했는지 체크하는 오브젝트
+    public GameObject gameClearCheck2;      // 게임을 클리어 했는지 체크하는 오브젝트 2
 
     public GameClearUI clearUI;             // GameClearUI 제어
-    public GameObject clearUIObject;        // 활성화 될 GameObjectUI
-    public Button clearButton;              // 활성화 될 Buttonobject
+    public GameObject clearUIObject;        // 활성화 될 Player1의 GameObjectUI
+    public GameObject clearUIObject2;       // 활성화 첫번째가 활성화 된 후 Player2의 ClearPanel을 활성화 시킬 GameObjectUI
+    public Button clearButton;              // 활성화 될 ButtonObject
+    public Button clearButton2;             // 활성화 될 ButtonObject
 
     public bool isJump;                     // 점프 상태 여부
     public bool player2P;                   // 1P와 2P를 구분
@@ -260,6 +265,8 @@ public class PlayerController : MonoBehaviour
         if(hit.gameObject.tag == "Question")
         {
             changeBox.ChangeBoxQuestion();
+            // bridgeObject 활성화
+            bridgeObject.SetActive(true);
         }
         // Start이라는 태그를 가진 계단을 밟았을 때 점프가 안되게한다.
         if(hit.gameObject.tag == "Stair")
@@ -268,6 +275,11 @@ public class PlayerController : MonoBehaviour
             playerAnim.PlayBool("isJump", false);
             // 점프가 안되게 isJump를 true로 바꿈 (이러면 땅에 닿았을 때 다시 false로 바껴서 점프가 가능해진다.)
             isJump = true;
+        }
+        // Wrong이라는 태그를 가진 그라운드를 밟았을 때 사라지면서 떨어지게 한다
+        if(hit.gameObject.tag == "Wrong")
+        {
+            Destroy(wrongObject);
         }
     }
 
@@ -389,17 +401,31 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.transform.position = fallingStage2Target.transform.position;     // 리스폰
         }
-        // TowerClear라는 태그를 가진 콜라이더에 닿았을 때 임시로 게임 클리어를 만들어놓음
+        // TowerClear라는 태그를 가진 콜라이더에 닿았을 때 임시로 게임 클리어를 만들어놓았습니다
         if(other.tag == "TowerClear")
         {
             // UI창 띄우면서 임시 게임 클리어 창을 활성화
             clearUI.Clear(clearUIObject);
+            // 게임을 클리어하는 콜라이더에 닿았을 때 그 콜라이더를 삭제 시킨다 -> 두번 닿지 않게 하기 위해
+            DestroyCollider(gameClearCheck);
+            // 게임 클리어 버튼을 눌러야 하니 마우스 커서를 활성화 시킨다.
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            clearBool = true;
         }
-        else if(other.tag == "TowerClear")
+        // TowerClear라는 태그를 가진 콜라이더에 닿고, clearBool이 true일때
+        if(other.tag == "TowerClear2" && clearBool == true)
         {
-
+            clearUI.Clear(clearUIObject2);
+            DestroyCollider(gameClearCheck2);
+            clearUI.ClearButton(clearButton);
+            clearUI.ClearButton(clearButton2);
         }
     }
 
-
+    // 콜라이더를 삭제하는 메소드
+    public void DestroyCollider(GameObject gameObject)
+    {
+        Destroy(gameObject);
+    }
 }

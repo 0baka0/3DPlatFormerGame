@@ -37,6 +37,8 @@ TagManager:
   - Box
   - Stair
   - TowerClear
+  - Wrong
+  - TowerClear2
   layers:
   - Default
   - TransparentFX
