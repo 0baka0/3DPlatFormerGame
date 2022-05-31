@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     public Stair stair;                     // 계단
     public GameObject gameClearCheck;       // 게임을 클리어 했는지 체크하는 오브젝트
     public GameObject gameClearCheck2;      // 게임을 클리어 했는지 체크하는 오브젝트 2
+    public Arrow arrow;                     // 성 바로 앞에 있는 화살표
 
     public GameClearUI clearUI;             // GameClearUI 제어
     public GameObject clearUIObject;        // 활성화 될 Player1의 GameObjectUI
@@ -402,24 +403,29 @@ public class PlayerController : MonoBehaviour
             gameObject.transform.position = fallingStage2Target.transform.position;     // 리스폰
         }
         // TowerClear라는 태그를 가진 콜라이더에 닿았을 때 임시로 게임 클리어를 만들어놓았습니다
-        if(other.tag == "TowerClear")
+        if (other.tag == "TowerClear" && player2P == true)
         {
-            // UI창 띄우면서 임시 게임 클리어 창을 활성화
+            // Player1의 UI창 띄우면서 임시 게임 클리어 창을 활성화
             clearUI.Clear(clearUIObject);
             // 게임을 클리어하는 콜라이더에 닿았을 때 그 콜라이더를 삭제 시킨다 -> 두번 닿지 않게 하기 위해
             DestroyCollider(gameClearCheck);
-            // 게임 클리어 버튼을 눌러야 하니 마우스 커서를 활성화 시킨다.
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
+            // 두번째 성에 들어 갔을 때 첫번째 성 앞에 있는 화살표를 활성화 시킨다.
+            arrow.gameObject.SetActive(true);
+            // Bool값을 true로 바꾼다.
             clearBool = true;
         }
         // TowerClear라는 태그를 가진 콜라이더에 닿고, clearBool이 true일때
-        if(other.tag == "TowerClear2" && clearBool == true)
+        if(other.tag == "TowerClear2" && clearBool == true && player2P == true)
         {
+            // Player2의 클리어 창을 활성화
             clearUI.Clear(clearUIObject2);
+            // 게임을 클리어 하는 콜라이더에 닿았을 때 그 콜라이더를 삭제 시킨다 -> 두번 닿지 않게 하기 위해
             DestroyCollider(gameClearCheck2);
-            clearUI.ClearButton(clearButton);
-            clearUI.ClearButton(clearButton2);
+            clearUI.ClearButton(clearButton);   // Player1의 클리어 버튼 활성화
+            clearUI.ClearButton(clearButton2);  // Player2의 클리어 버튼 활성화
+            // 게임 클리어 버튼을 눌러야 하니 마우스 커서를 활성화 시킨다.
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
         }
     }
 

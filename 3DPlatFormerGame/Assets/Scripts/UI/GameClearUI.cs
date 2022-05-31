@@ -16,6 +16,9 @@ public class GameClearUI : MonoBehaviour
         player2Clear.SetActive(false);                  // 시작 할 때 비활성화 시킨다.
         gameClear1PButton.gameObject.SetActive(false);  // 시작 할 때 비활성화 시킨다.
         gameClear2PButton.gameObject.SetActive(false);  // 시작 할 때 비활성화 시킨다.
+
+        gameClear1PButton.onClick.AddListener(() => GameClear());
+        gameClear2PButton.onClick.AddListener(() => GameClear());
     }
 
     // Player1과 Player2가 다르기 때문에 ClearPanel을 따로 활성화시킨다.
@@ -33,6 +36,6 @@ public class GameClearUI : MonoBehaviour
     // gameClearButton을 눌렀을 때 게임을 종료 시킨다.
     public void GameClear()
     {
-        Application.Quit();
+        UnityEditor.EditorApplication.isPlaying = false;
     }
 }
