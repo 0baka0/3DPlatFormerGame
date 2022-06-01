@@ -261,6 +261,7 @@ public class PlayerController : MonoBehaviour
         {
             lever3.LeverActivate();                     // 레버 애니메이션 재생
             tower.OpenDoor();                           // TowerDoor 애니메이션 재생
+            arrow.gameObject.SetActive(true);           // ArrowObject 활성화
         }
         // ChangeBox 물음표 박스를 밟았을 때 느낌표로 바뀐다.
         if(hit.gameObject.tag == "Question")
